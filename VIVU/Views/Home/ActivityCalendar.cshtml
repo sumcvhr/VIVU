@@ -1,0 +1,196 @@
+﻿
+@{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
+@model VIVU.Models.VivuVM
+<!-- Etkinlik Takvimi -->
+<div class=" mt-5" id="ativitycalendar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <ul class="et-menu nav nav-pills flex-column" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Yaklaşan Etkinlikler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Oluşturduğum Etkinlikler</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="k-tab" data-toggle="tab" href="#k" role="tab" aria-controls="k" aria-selected="false">Katıldığım Etkinlikler</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            @if (Model.activities != null)
+                            {
+                                foreach (var aktivite in Model.activities)
+                                {
+                                    <div class="col-12" id="calendar-movie">
+                                        <div class="movie-container m-5 p-5">
+                                            <div class="row d-flex align-items-stretch">
+                                                <div class="col-md-5 col-lg-5">
+                                                    <img src="@aktivite.BannerAdress" class="img-fluid movie-img">
+                                                </div>
+                                                <div class="col-md-7 col-lg-7 d-flex flex-column justify-content-start">
+                                                    <h1 class="mb-3">@aktivite.ActivityName</h1>
+                                                    <ul class="movie-tags">
+                                                        <li>Tarih: @aktivite.ActivityDate</li>
+                                                        <li>Saat: @aktivite.ActivityTime</li>
+                                                        <li>
+                                                            Fiyat: @aktivite.ActivityPrice <i class="fa fa-turkish-lira"></i>
+                                                        </li>
+                                                    </ul>
+                                                    <div style="clear:both"> </div>
+                                                    <div style="overflow: auto; max-height: 198px; ">
+                                                        <p class="movie-info mt-3">
+                                                            @aktivite.ActivityDetail
+                                                        </p>
+                                                    </div>
+                                                    <div class=" bd-highlight mb-2">
+                                                        <a href="#" class="btn-watch"><i class="fa fa-ticket" aria-hidden="true"></i>Yayın Aç</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            @if (Model.activities != null)
+                            {
+                                foreach (var aktivite in Model.activities)
+                                {
+                                    <div class="col-12" id="calendar-movie">
+                                        <div class="movie-container m-5 p-5">
+                                            <div class="row d-flex align-items-stretch">
+                                                <div class="col-md-5 col-lg-5">
+                                                    <img src="@aktivite.BannerAdress" class="img-fluid movie-img">
+                                                </div>
+                                                <div class="col-md-7 col-lg-7 d-flex flex-column justify-content-start">
+                                                    <h1 class="mb-3">@aktivite.ActivityName</h1>
+                                                    <ul class="movie-tags">
+                                                        <li>Tarih: @aktivite.ActivityDate</li>
+                                                        <li>Saat: @aktivite.ActivityTime</li>
+                                                        <li>
+                                                            Fiyat: @aktivite.ActivityPrice <i class="fa fa-turkish-lira"></i>
+                                                        </li>
+                                                    </ul>
+                                                    <div style="clear:both"> </div>
+                                                    <div style="overflow: auto; max-height: 198px; ">
+                                                        <p class="movie-info mt-3">
+                                                            @aktivite.ActivityDetail
+                                                        </p>
+                                                    </div>
+                                                    <div class=" bd-highlight mb-2">
+                                                        <a href="#" class="btn-watch"><i class="fa fa-ticket" aria-hidden="true"></i>Yayın Aç</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="k" role="tabpanel" aria-labelledby="k-tab">
+                        <div class="row">
+                            @if (Model.activities != null)
+                            {
+                                foreach (var aktivite in Model.activities)
+                                {
+                                    <div class="col-12" id="calendar-movie">
+                                        <div class="movie-container m-5 p-5">
+                                            <div class="row d-flex align-items-stretch">
+                                                <div class="col-md-5 col-lg-5">
+                                                    <img src="@aktivite.BannerAdress" class="img-fluid movie-img">
+                                                </div>
+                                                <div class="col-md-7 col-lg-7 d-flex flex-column justify-content-start">
+                                                    <h1 class="mb-3">@aktivite.ActivityName</h1>
+                                                    <ul class="movie-tags">
+                                                        <li>Tarih: @aktivite.ActivityDate</li>
+                                                        <li>Saat: @aktivite.ActivityTime</li>
+                                                        <li>
+                                                            Fiyat: @aktivite.ActivityPrice <i class="fa fa-turkish-lira"></i>
+                                                        </li>
+                                                    </ul>
+                                                    <div style="clear:both"> </div>
+                                                    <div style="overflow: auto; max-height: 198px; ">
+                                                        <p class="movie-info mt-3">
+                                                            @aktivite.ActivityDetail
+                                                        </p>
+                                                    </div>
+                                                    <div class=" bd-highlight mb-2">
+                                                        <a href="#" class="btn-watch"><i class="fa fa-ticket" aria-hidden="true"></i>Yayın Aç</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<script>
+    $('.tab-menu a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
+
+
+</script>
+
+<script>
+    const $body = $('body');
+    const $btnMenu = $('.menu-toggle');
+    $btnMenu.click(function () {
+        $body.toggleClass('menu-open');
+    });
+
+    const btnCloseBar = document.querySelector('.js-close-bar');
+    const btnOpenBar = document.querySelector('.js-open-bar');
+    const searchBar = document.querySelector('.searchbar');
+
+    btnOpenBar.addEventListener('click', () => {
+        searchBar.classList.add('bar--is-visible');
+    });
+
+    btnCloseBar.addEventListener('click', () => {
+        searchBar.classList.remove('bar--is-visible');
+    });
+
+
+</script>
+
+<link href="~/css/Home.css" rel="stylesheet" />

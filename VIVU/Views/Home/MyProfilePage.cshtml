@@ -1,0 +1,206 @@
+﻿@{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
+@model VIVU.Models.VivuVM
+<div id="profilepage">
+    <div class="profile-page">
+        <div class="main main-raised">
+            <div class="profile-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <div class="profile">
+                                <div class="avatar">
+                                    <img src="@Model.user.AvatarAdress" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                                </div>
+                                <div class="name">
+                                    <h3 class="title">@Model.user.FistName @Model.user.LastName</h3>
+                                    <h6 style="color:#3c4858;">@Model.user.Title</h6>
+                                </div>
+                                <div class="description text-center">
+                                    <i class="far fa-user"></i> <span>24</span> <span>Takipçi</span>
+                                </div>
+                                <div class="description text-center">
+                                    <i class="far fa-star" style="color: #FFD700;"></i> <span>4.7 / </span>   <span>24</span> <span>Değerlendirme</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mx-auto">
+                            <div class="profile-tabs">
+                                <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
+                                            <i class="far fa-address-card"></i>
+                                            Hakkında
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#works" role="tab" data-toggle="tab">
+                                            <i class="fas fa-user-check"></i>
+                                            Takip Ettiklerim
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
+                                            <i class="fas fa-users"></i>
+                                            Takipçi
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content tab-space scroller">
+                        <div class="tab-pane active text-center gallery" id="studio">
+                            <div class="row">
+
+                                <div class="col-2 ml-auto">
+                                    <button type="button" id="modal-btn" data-toggle="modal" data-target="#myModal" style=" border: none; background-color: white;">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                                <div class="col-12 mx-auto">
+                                    <div class="description text-center">
+                                        <p>@Model.user.About </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane text-center gallery" id="works">
+                            <div class="row ">
+                                <div class="col-12 mb-5 ml-auto">
+                                    <div class="row">
+                                        <div class="col-8 mx-auto">
+                                            <div class="people-nearby">
+                                                <div class="nearby-user">
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-2">
+                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
+                                                        </div>
+                                                        <div class="col-md-7 col-sm-7">
+                                                            <h3 style="color: #373636; font-size: 24px;"><a href="#" class="profile-link">Sophia Page</a></h3>
+                                                            <p style=" color: #373636; font-size: 20px;">Software Engineer</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3">
+                                                            <button class="btn pull-right" id="bntakip">Takip Ediliyor</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-5 ml-auto">
+                                    <div class="row">
+                                        <div class="col-8 mx-auto">
+                                            <div class="people-nearby">
+                                                <div class="nearby-user">
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-2">
+                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
+                                                        </div>
+                                                        <div class="col-md-7 col-sm-7">
+                                                            <h3 style="color: #373636; font-size: 24px;"><a href="#" class="profile-link">Sophia Page</a></h3>
+                                                            <p style=" color: #373636; font-size: 20px;">Software Engineer</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3">
+                                                            <button class="btn pull-right" id="bntakip">Takip Ediliyor</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane text-center gallery" id="favorite">
+                            <div class="row">
+                                <div class="col-12 mb-5 ml-auto">
+                                    <div class="row">
+                                        <div class="col-8 mx-auto">
+                                            <div class="people-nearby">
+                                                <div class="nearby-user">
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-2">
+                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
+                                                        </div>
+                                                        <div class="col-md-7 col-sm-7">
+                                                            <h3 style="color: #373636; font-size: 24px;"><a href="#" class="profile-link">Sophia Page</a></h3>
+                                                            <p style=" color: #373636; font-size: 20px;">Software Engineer</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3">
+                                                            <button class="btn pull-right" id="bntakip">Takip Ediliyor</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-5 ml-auto">
+                                    <div class="row">
+                                        <div class="col-8 mx-auto">
+                                            <div class="people-nearby">
+                                                <div class="nearby-user">
+                                                    <div class="row">
+                                                        <div class="col-md-2 col-sm-2">
+                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user" class="profile-photo-lg">
+                                                        </div>
+                                                        <div class="col-md-7 col-sm-7">
+                                                            <h3 style="color: #373636; font-size: 24px;">
+                                                                <a href="#" class="profile-link">Sophia Page</a>
+                                                            </h3>
+                                                            <p style=" color: #373636; font-size: 20px;">Software Engineer</p>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3">
+                                                            <button class="btn pull-right" id="bntakip1">Takip Et</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="color: #373636;">
+                    <h4 class="modal-title">Düzenle</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <form asp-controller="Home" asp-action="MyProfilePage" method="post">
+                    <div asp-validation-summary="All">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="inputAbout"></label>
+                                <input asp-for="user.About" type="text" class="form-control" id="exampleFormControlTextarea1" rows="3">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="modal-kyt" class="btn btn-default" data-dismiss="modal">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<link href="~/css/MyProfilePage.css" rel="stylesheet" />

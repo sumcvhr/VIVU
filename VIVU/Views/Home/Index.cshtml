@@ -1,0 +1,147 @@
+﻿@{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
+@model VIVU.Models.VivuVM
+<div class="tab-content" style="width:100%;">
+    <!-- Ana Sayfa -->
+    <div class="row" id="etcard">
+        <div class="col-9 row">
+            <div class="work col-lg-4 col-sm-12" data-toggle="modal" data-target="#myModal">
+                <div class='card'>
+                    <div class='overlay'></div>
+                    <img src='~/img/a1.jpg' class='bg'>
+                    <div class='card-text'>
+                        <div class='whitespace'></div>
+                        <h1>Etkinlik Adı</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="work col-lg-4 col-sm-12">
+                <div class='card'>
+                    <div class='overlay'></div>
+                    <img src='~/img/a2.jpg' class='bg'>
+                    <div class='card-text'>
+                        <div class='whitespace'></div>
+                        <h1>Etkinlik Adı</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="work col-lg-4 col-sm-12">
+                <div class='card'>
+                    <div class='overlay'></div>
+                    <img src='~/img/a3.jpg' class='bg'>
+                    <div class='card-text'>
+                        <div class='whitespace'></div>
+                        <h1>Etkinlik Adı</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="work col-lg-4 col-sm-12">
+                <div class='card'>
+                    <div class='overlay'></div>
+                    <img src='/img/a4.jpg' class='bg'>
+                    <div class='card-text'>
+                        <div class='whitespace'></div>
+                        <h1>Etkinlik Adı</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="work col-lg-4 col-sm-12">
+                <div class='card'>
+                    <div class='overlay'></div>
+                    <img src='~/img/a5.png' class='bg'>
+                    <div class='card-text'>
+                        <div class='whitespace'></div>
+                        <h1>Etkinlik Adı</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="work col-lg-4 col-sm-12">
+                <div class='card'>
+                    <div class='overlay'></div>
+                    <img src='~/img/a6.jpg' class='bg'>
+                    <div class='card-text'>
+                        <div class='whitespace'></div>
+                        <h1>Etkinlik Adı</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 yse row">
+            <h4 class="my-4" style=" border-bottom: 1px solid #81b1efb3;">Yaklaşan Etkinlikler </h4>
+            @if (Model.activities != null)
+            {
+                foreach (var aktivitem in Model.activities)
+                {
+                    <div class="people-nearby">
+                        <div class="nearby-user">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">
+                                    <img src="@aktivitem.BannerAdress" alt="user" class="profile-photo-lg">
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <p style="font-size: 16px;"><a href="#" class="profile-link">@aktivitem.ActivityName</a></p>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <button class="btn ys-btn pull-right">Başlat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+                    <div class="people-nearby">
+                        <div class="nearby-user">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="user" class="profile-photo-lg">
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <p style="font-size: 16px;"><a href="#" class="profile-link">Etkinlik Adı</a></p>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <button class="btn ys-btn pull-right">Katıl</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div>
+                    <div class="modal-body">
+                        <div class="movie-container m-5 p-5">
+                            <div class="row d-flex align-items-stretch">
+                                <div class="col-md-5 col-lg-5">
+                                    <img src="~/img/a1.jpg" class="img-fluid movie-img">
+                                </div>
+                                <div class="col-md-7 col-lg-7 d-flex flex-column justify-content-start">
+                                    <h1 class="mb-3">Etkinlik Adı</h1>
+                                    <ul class="movie-tags">
+                                        <li>Tarih: 02.07.2022</li>
+                                        <li>Saat: 16.00</li>
+                                        <li>
+                                            Fiyat: 20 <i class="fa fa-turkish-lira"></i>
+                                        </li>
+                                    </ul>
+                                    <div style="clear:both"> </div>
+                                    <p class="movie-info mt-3">
+                                        Etkinlik içeriği
+                                    </p>
+                                    <div class="mt-auto bd-highlight mb-2">
+                                        <a href="#" class="btn-watch"><i class="fa fa-ticket" aria-hidden="true"></i>Bilet Al</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+<link href="~/css/Home.css" rel="stylesheet" />

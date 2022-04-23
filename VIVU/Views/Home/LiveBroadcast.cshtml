@@ -1,0 +1,533 @@
+﻿@*<div class="head">
+        <nav class="navbar navbar-expand-lg navbar-light " id="livenav" style="z-index:999;">
+            <a class="navbar-brand" href="#"><img src="~/img/navlogo.png" /></a>
+            <div id="navbarText" style="margin-left: auto;">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a> <i class="fas fa-sign-out-alt" style="font-size: 18px;"></i> </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <nav id="sidebar-wrapper">
+        <div class="chat">
+            <div class="header">
+                <p class="roomtitle">BEARocrat</p>
+            </div>
+            <div class="live-chat " id="style-1">
+                <ul>
+                    <li class="mb-1" style="background-color: #212020;padding: 2px;">
+                        <div class="d-flex mt-2"> <img src="https://t4.ftcdn.net/jpg/03/83/25/83/240_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg" style="width: 20px;height: 20px;border-radius: 100%;" /><span class="ml-2">Sümeyye Cevahir</span> </div>
+                        <div><p class="ml-2">Mesaj Kutusu</p></div>
+                    </li>
+                    <li class="mb-1" style="background-color: #212020;padding: 2px;">
+                        <div class="d-flex mt-2"><span class="mr-2 ml-auto">Sümeyye Cevahir</span> <img src="https://t4.ftcdn.net/jpg/03/83/25/83/240_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg" style="width: 20px;height: 20px;border-radius: 100%;" /> </div>
+                        <div><p class="ml-2">Mesaj Kutusu</p></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat-interface">
+
+                <div class="chat-textarea">
+                    <textarea type="text" name="chat-form" id="chat-form" class="chat-form clearfix"></textarea>
+                </div>
+
+                <div class="last-container clearfix">
+                    <button class="submit-button button">Chat</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-12">
+            <div class="ml-auto" style="overflow-x: auto; padding-left: 16px;">
+                <ul class="video-card d-flex">
+                    <li>
+                        <div class="card" style="width:10rem;">
+                            <video class="card-img-top" id="localVideo" autoplay />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card" style="width: 10rem;">
+                            <video class="card-img-top" id="remoteVideo" autoplay></video>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12">
+            <input id="videoCallButton" type="button" disabled value="Video Call" />
+            <input id="endCallButton" type="button" disabled value="End Call" />
+        </div>
+        <div>
+
+            <a id="menu-toggle" href="#" class="toggle"><i class="far fa-comment-dots"></i></a>
+
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <script>
+        $("#menu-close").click(function (e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+    </script>
+    <script src="webrtc.js"></script>
+    <script type="text/javascript">
+        window.addEventListener("load", pageReady);
+    </script>
+    <script>
+        window.addEventListener("load", function (evt) {
+            navigator.getUserMedia({ audio: true, video: true },
+                function (stream) {
+                    var video = document.getElementById('localVideo');
+                    video.src = window.URL.createObjectURL(stream);
+                },
+                function (err) {
+                    console.log("The following error occurred: " + err.name);
+                }
+            );
+        });
+    </script>
+    <link href="~/css/LiveBroadcast.css" rel="stylesheet" />*@
+
+<div class="header">
+    <div class="logo">
+        <div class="header__back">
+            <i class="fas fa-angle-left"></i>
+        </div>
+        <h3>Video Chat</h3>
+    </div>
+</div>
+<div class="main">
+    <div class="main__left">
+        <div class="videos__group">
+            <div id="video-grid">
+                <!--<h1>
+                    <a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">ASP.NET Core 3.1 samples</a>
+                    <span>Audio/Video Recording</span>
+                </h1>
+                <p>
+                    For more information see the MediaStream Recording API <a href="http://w3c.github.io/mediacapture-record/MediaRecorder.html"
+                                                                              title="W3C MediaStream Recording API Editor's Draft">Editor's&nbsp;Draft</a>.
+                </p>-->
+                @*<video id="gum" playsinline autoplay muted style="border: 1px solid rgb(15, 158, 238); height: 240px; width: 320px;"></video>
+                <video id="recorded" playsinline loop style="border: 1px solid rgb(15, 158, 238); height: 240px; width: 320px;"></video>
+                <div>
+                    <button id="start" class="btn btn-success">Start camera</button>
+                    <button id="record" disabled class="btn btn-info">Start Recording</button>
+                    <button id="play" disabled class="btn btn-warning">Play</button>
+                    <button id="download" disabled class="btn btn-dark">Download</button>
+                    <button id="stop" class="btn btn-danger">Stop camera</button>
+                </div>
+                <div> Recording format: <select id="codecPreferences" disabled></select> </div>*@
+                @*<div>
+                    <h4>Media Stream Constraints options</h4>
+                    <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+                </div>
+                <div><span id="errorMsg"></span></div>*@
+            </div>
+        </div>
+        <div class="options">
+            <div class="options__left">
+                <div id="stopVideo" class="options__button">
+                    <i class="fa fa-video-camera"></i>
+                </div>
+                <div id="muteButton" class="options__button">
+                    <i class="fa fa-microphone"></i>
+                </div>
+                <div id="showChat" class="options__button">
+                    <i class="fa fa-comment"></i>
+                </div>
+            </div>
+            <div class="options__right">
+                <div id="inviteButton" class="options__button">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main__right">
+        <div class="main__chat_window">
+            <div class="messages">
+
+            </div>
+        </div>
+        <div class="main__message_container">
+            <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
+            <div id="send" class="options__button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<script >
+    $(document).ready(function () {
+        const ROOM_ID = "<%= roomId %>";
+
+        const socket = io("/");
+        const videoGrid = document.getElementById("video-grid");
+        const myVideo = document.createElement("video");
+        const showChat = document.querySelector("#showChat");
+        const backBtn = document.querySelector(".header__back");
+        myVideo.muted = true;
+
+        backBtn.addEventListener("click", () => {
+            document.querySelector(".main__left").style.display = "flex";
+            document.querySelector(".main__left").style.flex = "1";
+            document.querySelector(".main__right").style.display = "none";
+            document.querySelector(".header__back").style.display = "none";
+        });
+
+        showChat.addEventListener("click", () => {
+            document.querySelector(".main__right").style.display = "flex";
+            document.querySelector(".main__right").style.flex = "1";
+            document.querySelector(".main__left").style.display = "none";
+            document.querySelector(".header__back").style.display = "block";
+        });
+
+        const user = prompt("Enter your name");
+
+        var peer = new Peer(undefined, {
+            path: "/peerjs",
+            host: "/",
+            port: "443",
+        });
+
+        let myVideoStream;
+        navigator.mediaDevices
+            .getUserMedia({
+                audio: true,
+                video: true,
+            })
+            .then((stream) => {
+                myVideoStream = stream;
+                addVideoStream(myVideo, stream);
+
+                peer.on("call", (call) => {
+                    call.answer(stream);
+                    const video = document.createElement("video");
+                    call.on("stream", (userVideoStream) => {
+                        addVideoStream(video, userVideoStream);
+                    });
+                });
+
+                socket.on("user-connected", (userId) => {
+                    connectToNewUser(userId, stream);
+                });
+            });
+
+        const connectToNewUser = (userId, stream) => {
+            const call = peer.call(userId, stream);
+            const video = document.createElement("video");
+            call.on("stream", (userVideoStream) => {
+                addVideoStream(video, userVideoStream);
+            });
+        };
+
+        peer.on("open", (id) => {
+            socket.emit("join-room", ROOM_ID, id, user);
+        });
+
+        const addVideoStream = (video, stream) => {
+            video.srcObject = stream;
+            video.addEventListener("loadedmetadata", () => {
+                video.play();
+                videoGrid.append(video);
+            });
+        };
+
+        let text = document.querySelector("#chat_message");
+        let send = document.getElementById("send");
+        let messages = document.querySelector(".messages");
+
+        send.addEventListener("click", (e) => {
+            if (text.value.length !== 0) {
+                socket.emit("message", text.value);
+                text.value = "";
+            }
+        });
+
+        text.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && text.value.length !== 0) {
+                socket.emit("message", text.value);
+                text.value = "";
+            }
+        });
+
+        const inviteButton = document.querySelector("#inviteButton");
+        const muteButton = document.querySelector("#muteButton");
+        const stopVideo = document.querySelector("#stopVideo");
+        muteButton.addEventListener("click", () => {
+            const enabled = myVideoStream.getAudioTracks()[0].enabled;
+            if (enabled) {
+                myVideoStream.getAudioTracks()[0].enabled = false;
+                html = `<i class="fas fa-microphone-slash"></i>`;
+                muteButton.classList.toggle("background__red");
+                muteButton.innerHTML = html;
+            } else {
+                myVideoStream.getAudioTracks()[0].enabled = true;
+                html = `<i class="fas fa-microphone"></i>`;
+                muteButton.classList.toggle("background__red");
+                muteButton.innerHTML = html;
+            }
+        });
+
+        stopVideo.addEventListener("click", () => {
+            const enabled = myVideoStream.getVideoTracks()[0].enabled;
+            if (enabled) {
+                myVideoStream.getVideoTracks()[0].enabled = false;
+                html = `<i class="fas fa-video-slash"></i>`;
+                stopVideo.classList.toggle("background__red");
+                stopVideo.innerHTML = html;
+            } else {
+                myVideoStream.getVideoTracks()[0].enabled = true;
+                html = `<i class="fas fa-video"></i>`;
+                stopVideo.classList.toggle("background__red");
+                stopVideo.innerHTML = html;
+            }
+        });
+
+        inviteButton.addEventListener("click", (e) => {
+            prompt(
+                "Copy this link and send it to people you want to meet with",
+                window.location.href
+            );
+        });
+
+        socket.on("createMessage", (message, userName) => {
+            messages.innerHTML =
+                messages.innerHTML +
+                `<div class="message">
+        <b><i class="far fa-user-circle"></i> <span> ${userName === user ? "me" : userName
+                }</span> </b>
+        <span>${message}</span>
+    </div>`;
+        });
+        const express = require("express");
+        const app = express();
+        const server = require("http").Server(app);
+        const { v4: uuidv4 } = require("uuid");
+        app.set("view engine", "ejs");
+        const io = require("socket.io")(server, {
+            cors: {
+                origin: '*'
+            }
+        });
+        const { ExpressPeerServer } = require("peer");
+        const peerServer = ExpressPeerServer(server, {
+            debug: true,
+        });
+
+        app.use("/peerjs", peerServer);
+        app.use(express.static("public"));
+
+        app.get("/", (req, res) => {
+            res.redirect(`/${uuidv4()}`);
+        });
+
+        app.get("/:room", (req, res) => {
+            res.render("room", { roomId: req.params.room });
+        });
+
+        io.on("connection", (socket) => {
+            socket.on("join-room", (roomId, userId, userName) => {
+                socket.join(roomId);
+                socket.to(roomId).broadcast.emit("user-connected", userId);
+                socket.on("message", (message) => {
+                    io.to(roomId).emit("createMessage", message, userName);
+                });
+            });
+        });
+
+        server.listen(process.env.PORT || 3030);
+        'use strict';
+
+        /* globals MediaRecorder */
+
+        let mediaRecorder;
+        let recordedBlobs;
+
+        const codecPreferences = document.querySelector('#codecPreferences');
+
+        const errorMsgElement = document.querySelector('span#errorMsg');
+        const recordedVideo = document.querySelector('video#recorded');
+        const recordButton = document.querySelector('button#record');
+        recordButton.addEventListener('click', () => {
+            if (recordButton.textContent === 'Start Recording') {
+                startRecording();
+            } else {
+                stopRecording();
+                recordButton.textContent = 'Start Recording';
+                playButton.disabled = false;
+                downloadButton.disabled = false;
+                codecPreferences.disabled = false;
+            }
+        });
+
+        const playButton = document.querySelector('button#play');
+        playButton.addEventListener('click', () => {
+            const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value.split(';', 1)[0];
+            const superBuffer = new Blob(recordedBlobs, { type: mimeType });
+            recordedVideo.src = null;
+            recordedVideo.srcObject = null;
+            recordedVideo.src = window.URL.createObjectURL(superBuffer);
+            recordedVideo.controls = true;
+            recordedVideo.play();
+        });
+
+        const downloadButton = document.querySelector('button#download');
+        downloadButton.addEventListener('click', () => {
+            const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'test.webm';
+            document.body.appendChild(a);
+            a.click();
+            PostBlob(blob);
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+
+        });
+
+        function handleDataAvailable(event) {
+            console.log('handleDataAvailable', event);
+            if (event.data && event.data.size > 0) {
+                recordedBlobs.push(event.data);
+            }
+        }
+
+        function getSupportedMimeTypes() {
+            const possibleTypes = [
+                'video/webm;codecs=vp9,opus',
+                'video/webm;codecs=vp8,opus',
+                'video/webm;codecs=h264,opus',
+                'video/mp4;codecs=h264,aac',
+            ];
+            return possibleTypes.filter(mimeType => {
+                return MediaRecorder.isTypeSupported(mimeType);
+            });
+        }
+
+        function startRecording() {
+            recordedBlobs = [];
+            const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
+            const options = { mimeType };
+
+            try {
+                mediaRecorder = new MediaRecorder(window.stream, options);
+            } catch (e) {
+                console.error('Exception while creating MediaRecorder:', e);
+                errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
+                return;
+            }
+
+            console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+            recordButton.textContent = 'Stop Recording';
+            playButton.disabled = true;
+            downloadButton.disabled = true;
+            codecPreferences.disabled = true;
+            mediaRecorder.onstop = (event) => {
+                console.log('Recorder stopped: ', event);
+                console.log('Recorded Blobs: ', recordedBlobs);
+            };
+            mediaRecorder.ondataavailable = handleDataAvailable;
+            mediaRecorder.start();
+            console.log('MediaRecorder started', mediaRecorder);
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+        }
+
+        function handleSuccess(stream) {
+            recordButton.disabled = false;
+            console.log('getUserMedia() got stream:', stream);
+            window.stream = stream;
+
+            const gumVideo = document.querySelector('video#gum');
+            gumVideo.srcObject = stream;
+
+            getSupportedMimeTypes().forEach(mimeType => {
+                const option = document.createElement('option');
+                option.value = mimeType;
+                option.innerText = option.value;
+                codecPreferences.appendChild(option);
+            });
+            codecPreferences.disabled = false;
+        }
+
+        function PostBlob(blob) {
+            //FormData
+            var formData = new FormData();
+            formData.append('video-blob', blob);
+
+            // POST the Blob
+            $.ajax({
+                type: 'POST',
+                url: "Video/SaveRecoredFile",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    if (result) {
+                        console.log('Success');
+                    }
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            })
+        }
+
+        async function init(constraints) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            } catch (e) {
+                console.error('navigator.getUserMedia error:', e);
+                errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+            }
+        }
+
+        document.querySelector('button#start').addEventListener('click', async () => {
+            document.querySelector('button#start').disabled = true;
+            document.querySelector('button#stop').disabled = false;
+            const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
+            const constraints = {
+                audio: {
+                    echoCancellation: { exact: hasEchoCancellation }
+                },
+                video: {
+                    width: 1280, height: 720
+                }
+            };
+            console.log('Using media constraints:', constraints);
+            await init(constraints);
+        });
+
+        document.querySelector('button#stop').addEventListener('click', async () => {
+            document.querySelector('button#stop').disabled = true;
+            document.querySelector('button#start').disabled = false;
+            const video = document.querySelector('video#gum');
+            const mediaStream = video.srcObject;
+            await mediaStream.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+        });
+    }
+
+</script>
+
+<link href="~/css/webrct.css" rel="stylesheet" />

@@ -1,0 +1,24 @@
+﻿
+@model VIVU.Models.VivuVM
+<div class="header">
+
+    <img class="lg-vivu" src="~/img/lg.png" />
+    <div class="grid">
+        <div>
+            <form class="login">
+                @*<input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl">*@
+                <div>
+                    <h4 class="grs-yp"> Hesabınız Onaylandı </h4>
+                    @ViewBag.Message
+                    <div>
+                        <input type="submit" asp-controller="Home" asp-action="Login" value="Giriş Ekranına Git">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<link href="~/css/HesapOnayı.css" rel="stylesheet" />

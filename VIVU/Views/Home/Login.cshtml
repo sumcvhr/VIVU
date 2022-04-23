@@ -1,0 +1,126 @@
+﻿@model VIVU.Models.VivuVM
+<div class="header">
+
+    <img class="lg-vivu" src="~/img/lg.png" />
+    <div class="grid">
+        <div>
+            <form class="login" asp-controller="Home" asp-action="Login" method="post">
+                @*<input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl">*@
+                <div>
+                    <h4 class="grs-yp"> Giriş Yap </h4>
+                    @ViewBag.Message
+                    <div class="my-3">
+                        <span asp-validation-for="login.NickName" class="fontawesome-user"></span>
+                        <input asp-for="login.NickName" type="text" placeholder="Kullancı Adı" required>
+
+                        <span class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span asp-validation-for="login.Password" class="fontawesome-lock"></span>
+                        <input asp-for="login.Password" type="password" placeholder="Şifre" required>
+
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <a asp-controller="Home" asp-action="ForgotPassword" class="login-text"> Şifremi Unuttum? </a>
+                    </div>
+                    <div>
+                        <input type="submit" value="Giriş Yap">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content card mt-5">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold" style="color: #ffffffdb;">Kayıt Ol</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>  
+                    <form asp-controller="Home" asp-action="Login" enctype="multipart/form-data" method="post">
+                        <div class="modal-body mt-3 " style="padding: 0rem; margin-left: 0; ">
+                            <div asp-validation-summary="All" class="row" style="padding: 0rem; margin-left: 0; ">
+                             
+                                    <div class="avatar-upload mb-3 col-md-6 col-sm-12 col-lg-6">
+                                        <div class="avatar-edit">
+                                            <input type='file' name="Avatar" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                            <label for="imageUpload"></label>
+                                        </div>
+                                        <div class="avatar-preview">
+                                            <div id="imagePreview" style="background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqsb6lK-PlD1kHFoubbiC-jN21tqj9ADz9crJ2rBIstz1gKFPE&usqp=CAU);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-lg-6 ml-auto" style="padding-left:0px">
+                                        <div class="md-form mb-4 col-12">
+                                            <input asp-for="register.FistName" type="text" id="defaultForm-email" placeholder="Ad" class="form-control validate">
+                                            <span asp-validation-for="register.FistName" class="text-danger"></span>
+                                        </div>
+                                        <div class="md-form mb-4 col-12">
+                                            <input asp-for="register.LastName" type="text" id="defaultForm-email" placeholder="Soyad" class="form-control validate">
+                                            <span asp-validation-for="register.LastName" class="text-danger"></span>
+                                        </div>
+                                        <div class="md-form mb-4 col-12">
+                                            <input asp-for="register.NickName" type="text" id="defaultForm-email" placeholder="Kullanıcı Adı" class="form-control validate">
+                                            <span asp-validation-for="register.NickName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                             
+                                <div class="col-12 row">
+
+                                    <div class="md-form mb-4 col-md-6 col-sm-12 col-lg-6">
+                                        <input asp-for="register.Email" type="email" id="defaultForm-email" placeholder="E-Posta" class="form-control validate">
+                                        <span asp-validation-for="register.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="md-form mb-4 col-md-6 col-sm-12 col-lg-6">
+                                        <input asp-for="register.Title" type="text" id="defaultForm-email" placeholder="Ünvan" class="form-control validate">
+                                        <span asp-validation-for="register.Title" class="text-danger"></span>
+                                    </div>
+                                    <div class="md-form mb-4 col-md-6 col-sm-12 col-lg-6">
+                                        <input asp-for="register.Password" type="password" id="defaultForm-pass" placeholder="Şifre" class="form-control validate">
+                                        <span asp-validation-for="register.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="md-form mb-4 col-md-6 col-sm-12 col-lg-6">
+                                        <input asp-for="register.RePassword" type="password" id="defaultForm-pass" placeholder="Şifre Tekrar" class="form-control validate">
+                                        <span asp-validation-for="register.RePassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class=" register-btn mb-3 btn-rg btn-default">Kayıt Ol</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+                VIVU'a Kayıt Ol.
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
+</script>
+
+<link href="~/css/Login.css" rel="stylesheet" />
