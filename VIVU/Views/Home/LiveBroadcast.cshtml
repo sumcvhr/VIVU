@@ -98,436 +98,926 @@
     </script>
     <link href="~/css/LiveBroadcast.css" rel="stylesheet" />*@
 
-<div class="header">
-    <div class="logo">
-        <div class="header__back">
-            <i class="fas fa-angle-left"></i>
-        </div>
-        <h3>Video Chat</h3>
-    </div>
-</div>
-<div class="main">
-    <div class="main__left">
-        <div class="videos__group">
-            <div id="video-grid">
-                <!--<h1>
-                    <a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">ASP.NET Core 3.1 samples</a>
-                    <span>Audio/Video Recording</span>
-                </h1>
-                <p>
-                    For more information see the MediaStream Recording API <a href="http://w3c.github.io/mediacapture-record/MediaRecorder.html"
-                                                                              title="W3C MediaStream Recording API Editor's Draft">Editor's&nbsp;Draft</a>.
-                </p>-->
-                @*<video id="gum" playsinline autoplay muted style="border: 1px solid rgb(15, 158, 238); height: 240px; width: 320px;"></video>
-                <video id="recorded" playsinline loop style="border: 1px solid rgb(15, 158, 238); height: 240px; width: 320px;"></video>
-                <div>
-                    <button id="start" class="btn btn-success">Start camera</button>
-                    <button id="record" disabled class="btn btn-info">Start Recording</button>
-                    <button id="play" disabled class="btn btn-warning">Play</button>
-                    <button id="download" disabled class="btn btn-dark">Download</button>
-                    <button id="stop" class="btn btn-danger">Stop camera</button>
-                </div>
-                <div> Recording format: <select id="codecPreferences" disabled></select> </div>*@
-                @*<div>
-                    <h4>Media Stream Constraints options</h4>
-                    <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
-                </div>
-                <div><span id="errorMsg"></span></div>*@
+<!--<div class="header">
+        <div class="logo">
+            <div class="header__back">
+                <i class="fas fa-angle-left"></i>
             </div>
-        </div>
-        <div class="options">
-            <div class="options__left">
-                <div id="stopVideo" class="options__button">
-                    <i class="fa fa-video-camera"></i>
-                </div>
-                <div id="muteButton" class="options__button">
-                    <i class="fa fa-microphone"></i>
-                </div>
-                <div id="showChat" class="options__button">
-                    <i class="fa fa-comment"></i>
-                </div>
-            </div>
-            <div class="options__right">
-                <div id="inviteButton" class="options__button">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-            </div>
+            <h3>Video Chat</h3>
         </div>
     </div>
-    <div class="main__right">
-        <div class="main__chat_window">
-            <div class="messages">
+    <div class="main">
+        <div class="main__left">
+            <div class="videos__group">
+                <div id="video-grid">-->
+                    @*<h1>
+                        <a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">ASP.NET Core 3.1 samples</a>
+                        <span>Audio/Video Recording</span>
+                    </h1>
+                    <p>
+                        For more information see the MediaStream Recording API <a href="http://w3c.github.io/mediacapture-record/MediaRecorder.html"
+                                                                                  title="W3C MediaStream Recording API Editor's Draft">Editor's&nbsp;Draft</a>.
+                    </p>
+                    <video id="gum" playsinline autoplay muted style="border: 1px solid rgb(15, 158, 238); height: 240px; width: 320px;"></video>
+                    <video id="recorded" playsinline loop style="border: 1px solid rgb(15, 158, 238); height: 240px; width: 320px;"></video>
+                    <div>
+                        <button id="start" class="btn btn-success">Start camera</button>
+                        <button id="record" disabled class="btn btn-info">Start Recording</button>
+                        <button id="play" disabled class="btn btn-warning">Play</button>
+                        <button id="download" disabled class="btn btn-dark">Download</button>
+                        <button id="stop" class="btn btn-danger">Stop camera</button>
+                    </div>
+                    <div> Recording format: <select id="codecPreferences" disabled></select> </div>
+                    <div>
+                        <h4>Media Stream Constraints options</h4>
+                        <p>Echo cancellation: <input type="checkbox" id="echoCancellation"></p>
+                    </div>
+                    <div><span id="errorMsg"></span></div>*@
 
+                <!--</div>
+            </div>
+            <div class="options">
+                <div class="options__left">
+                    <div id="stopVideo" class="options__button">
+                        <i class="fa fa-video-camera"></i>
+                    </div>
+                    <div id="muteButton" class="options__button">
+                        <i class="fa fa-microphone"></i>
+                    </div>
+                    <div id="showChat" class="options__button">
+                        <i class="fa fa-comment"></i>
+                    </div>
+                </div>
+                <div class="options__right">
+                    <div id="inviteButton" class="options__button">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="main__message_container">
-            <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
-            <div id="send" class="options__button">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+        <div class="main__right">
+            <div class="main__chat_window">
+                <div class="messages">
+
+                </div>
+            </div>
+            <div class="main__message_container">
+                <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
+                <div id="send" class="options__button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <script >
-    $(document).ready(function () {
-        const ROOM_ID = "<%= roomId %>";
+        $(document).ready(function () {
+            const ROOM_ID = "<%= roomId %>";
 
-        const socket = io("/");
-        const videoGrid = document.getElementById("video-grid");
-        const myVideo = document.createElement("video");
-        const showChat = document.querySelector("#showChat");
-        const backBtn = document.querySelector(".header__back");
-        myVideo.muted = true;
+            const socket = io("/");
+            const videoGrid = document.getElementById("video-grid");
+            const myVideo = document.createElement("video");
+            const showChat = document.querySelector("#showChat");
+            const backBtn = document.querySelector(".header__back");
+            myVideo.muted = true;
 
-        backBtn.addEventListener("click", () => {
-            document.querySelector(".main__left").style.display = "flex";
-            document.querySelector(".main__left").style.flex = "1";
-            document.querySelector(".main__right").style.display = "none";
-            document.querySelector(".header__back").style.display = "none";
-        });
+            backBtn.addEventListener("click", () => {
+                document.querySelector(".main__left").style.display = "flex";
+                document.querySelector(".main__left").style.flex = "1";
+                document.querySelector(".main__right").style.display = "none";
+                document.querySelector(".header__back").style.display = "none";
+            });
 
-        showChat.addEventListener("click", () => {
-            document.querySelector(".main__right").style.display = "flex";
-            document.querySelector(".main__right").style.flex = "1";
-            document.querySelector(".main__left").style.display = "none";
-            document.querySelector(".header__back").style.display = "block";
-        });
+            showChat.addEventListener("click", () => {
+                document.querySelector(".main__right").style.display = "flex";
+                document.querySelector(".main__right").style.flex = "1";
+                document.querySelector(".main__left").style.display = "none";
+                document.querySelector(".header__back").style.display = "block";
+            });
 
-        const user = prompt("Enter your name");
+            const user = prompt("Enter your name");
 
-        var peer = new Peer(undefined, {
-            path: "/peerjs",
-            host: "/",
-            port: "443",
-        });
+            var peer = new Peer(undefined, {
+                path: "/peerjs",
+                host: "/",
+                port: "443",
+            });
 
-        let myVideoStream;
-        navigator.mediaDevices
-            .getUserMedia({
-                audio: true,
-                video: true,
-            })
-            .then((stream) => {
-                myVideoStream = stream;
-                addVideoStream(myVideo, stream);
+            let myVideoStream;
+            navigator.mediaDevices
+                .getUserMedia({
+                    audio: true,
+                    video: true,
+                })
+                .then((stream) => {
+                    myVideoStream = stream;
+                    addVideoStream(myVideo, stream);
 
-                peer.on("call", (call) => {
-                    call.answer(stream);
-                    const video = document.createElement("video");
-                    call.on("stream", (userVideoStream) => {
-                        addVideoStream(video, userVideoStream);
+                    peer.on("call", (call) => {
+                        call.answer(stream);
+                        const video = document.createElement("video");
+                        call.on("stream", (userVideoStream) => {
+                            addVideoStream(video, userVideoStream);
+                        });
+                    });
+
+                    socket.on("user-connected", (userId) => {
+                        connectToNewUser(userId, stream);
                     });
                 });
 
-                socket.on("user-connected", (userId) => {
-                    connectToNewUser(userId, stream);
+            const connectToNewUser = (userId, stream) => {
+                const call = peer.call(userId, stream);
+                const video = document.createElement("video");
+                call.on("stream", (userVideoStream) => {
+                    addVideoStream(video, userVideoStream);
+                });
+            };
+
+            peer.on("open", (id) => {
+                socket.emit("join-room", ROOM_ID, id, user);
+            });
+
+            const addVideoStream = (video, stream) => {
+                video.srcObject = stream;
+                video.addEventListener("loadedmetadata", () => {
+                    video.play();
+                    videoGrid.append(video);
+                });
+            };
+
+            let text = document.querySelector("#chat_message");
+            let send = document.getElementById("send");
+            let messages = document.querySelector(".messages");
+
+            send.addEventListener("click", (e) => {
+                if (text.value.length !== 0) {
+                    socket.emit("message", text.value);
+                    text.value = "";
+                }
+            });
+
+            text.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && text.value.length !== 0) {
+                    socket.emit("message", text.value);
+                    text.value = "";
+                }
+            });
+
+            const inviteButton = document.querySelector("#inviteButton");
+            const muteButton = document.querySelector("#muteButton");
+            const stopVideo = document.querySelector("#stopVideo");
+            muteButton.addEventListener("click", () => {
+                const enabled = myVideoStream.getAudioTracks()[0].enabled;
+                if (enabled) {
+                    myVideoStream.getAudioTracks()[0].enabled = false;
+                    html = `<i class="fas fa-microphone-slash"></i>`;
+                    muteButton.classList.toggle("background__red");
+                    muteButton.innerHTML = html;
+                } else {
+                    myVideoStream.getAudioTracks()[0].enabled = true;
+                    html = `<i class="fas fa-microphone"></i>`;
+                    muteButton.classList.toggle("background__red");
+                    muteButton.innerHTML = html;
+                }
+            });
+
+            stopVideo.addEventListener("click", () => {
+                const enabled = myVideoStream.getVideoTracks()[0].enabled;
+                if (enabled) {
+                    myVideoStream.getVideoTracks()[0].enabled = false;
+                    html = `<i class="fas fa-video-slash"></i>`;
+                    stopVideo.classList.toggle("background__red");
+                    stopVideo.innerHTML = html;
+                } else {
+                    myVideoStream.getVideoTracks()[0].enabled = true;
+                    html = `<i class="fas fa-video"></i>`;
+                    stopVideo.classList.toggle("background__red");
+                    stopVideo.innerHTML = html;
+                }
+            });
+
+            inviteButton.addEventListener("click", (e) => {
+                prompt(
+                    "Copy this link and send it to people you want to meet with",
+                    window.location.href
+                );
+            });
+
+            socket.on("createMessage", (message, userName) => {
+                messages.innerHTML =
+                    messages.innerHTML +
+                    `<div class="message">
+            <b><i class="far fa-user-circle"></i> <span> ${userName === user ? "me" : userName
+                    }</span> </b>
+            <span>${message}</span>
+        </div>`;
+            });
+            const express = require("express");
+            const app = express();
+            const server = require("http").Server(app);
+            const { v4: uuidv4 } = require("uuid");
+            app.set("view engine", "ejs");
+            const io = require("socket.io")(server, {
+                cors: {
+                    origin: '*'
+                }
+            });
+            const { ExpressPeerServer } = require("peer");
+            const peerServer = ExpressPeerServer(server, {
+                debug: true,
+            });
+
+            app.use("/peerjs", peerServer);
+            app.use(express.static("public"));
+
+            app.get("/", (req, res) => {
+                res.redirect(`/${uuidv4()}`);
+            });
+
+            app.get("/:room", (req, res) => {
+                res.render("room", { roomId: req.params.room });
+            });
+
+            io.on("connection", (socket) => {
+                socket.on("join-room", (roomId, userId, userName) => {
+                    socket.join(roomId);
+                    socket.to(roomId).broadcast.emit("user-connected", userId);
+                    socket.on("message", (message) => {
+                        io.to(roomId).emit("createMessage", message, userName);
+                    });
                 });
             });
 
-        const connectToNewUser = (userId, stream) => {
-            const call = peer.call(userId, stream);
-            const video = document.createElement("video");
-            call.on("stream", (userVideoStream) => {
-                addVideoStream(video, userVideoStream);
+            server.listen(process.env.PORT || 3030);
+            'use strict';
+
+            /* globals MediaRecorder */
+
+            let mediaRecorder;
+            let recordedBlobs;
+
+            const codecPreferences = document.querySelector('#codecPreferences');
+
+            const errorMsgElement = document.querySelector('span#errorMsg');
+            const recordedVideo = document.querySelector('video#recorded');
+            const recordButton = document.querySelector('button#record');
+            recordButton.addEventListener('click', () => {
+                if (recordButton.textContent === 'Start Recording') {
+                    startRecording();
+                } else {
+                    stopRecording();
+                    recordButton.textContent = 'Start Recording';
+                    playButton.disabled = false;
+                    downloadButton.disabled = false;
+                    codecPreferences.disabled = false;
+                }
             });
-        };
 
-        peer.on("open", (id) => {
-            socket.emit("join-room", ROOM_ID, id, user);
-        });
-
-        const addVideoStream = (video, stream) => {
-            video.srcObject = stream;
-            video.addEventListener("loadedmetadata", () => {
-                video.play();
-                videoGrid.append(video);
+            const playButton = document.querySelector('button#play');
+            playButton.addEventListener('click', () => {
+                const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value.split(';', 1)[0];
+                const superBuffer = new Blob(recordedBlobs, { type: mimeType });
+                recordedVideo.src = null;
+                recordedVideo.srcObject = null;
+                recordedVideo.src = window.URL.createObjectURL(superBuffer);
+                recordedVideo.controls = true;
+                recordedVideo.play();
             });
-        };
 
-        let text = document.querySelector("#chat_message");
-        let send = document.getElementById("send");
-        let messages = document.querySelector(".messages");
+            const downloadButton = document.querySelector('button#download');
+            downloadButton.addEventListener('click', () => {
+                const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'test.webm';
+                document.body.appendChild(a);
+                a.click();
+                PostBlob(blob);
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
 
-        send.addEventListener("click", (e) => {
-            if (text.value.length !== 0) {
-                socket.emit("message", text.value);
-                text.value = "";
+            });
+
+            function handleDataAvailable(event) {
+                console.log('handleDataAvailable', event);
+                if (event.data && event.data.size > 0) {
+                    recordedBlobs.push(event.data);
+                }
             }
-        });
 
-        text.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" && text.value.length !== 0) {
-                socket.emit("message", text.value);
-                text.value = "";
-            }
-        });
-
-        const inviteButton = document.querySelector("#inviteButton");
-        const muteButton = document.querySelector("#muteButton");
-        const stopVideo = document.querySelector("#stopVideo");
-        muteButton.addEventListener("click", () => {
-            const enabled = myVideoStream.getAudioTracks()[0].enabled;
-            if (enabled) {
-                myVideoStream.getAudioTracks()[0].enabled = false;
-                html = `<i class="fas fa-microphone-slash"></i>`;
-                muteButton.classList.toggle("background__red");
-                muteButton.innerHTML = html;
-            } else {
-                myVideoStream.getAudioTracks()[0].enabled = true;
-                html = `<i class="fas fa-microphone"></i>`;
-                muteButton.classList.toggle("background__red");
-                muteButton.innerHTML = html;
-            }
-        });
-
-        stopVideo.addEventListener("click", () => {
-            const enabled = myVideoStream.getVideoTracks()[0].enabled;
-            if (enabled) {
-                myVideoStream.getVideoTracks()[0].enabled = false;
-                html = `<i class="fas fa-video-slash"></i>`;
-                stopVideo.classList.toggle("background__red");
-                stopVideo.innerHTML = html;
-            } else {
-                myVideoStream.getVideoTracks()[0].enabled = true;
-                html = `<i class="fas fa-video"></i>`;
-                stopVideo.classList.toggle("background__red");
-                stopVideo.innerHTML = html;
-            }
-        });
-
-        inviteButton.addEventListener("click", (e) => {
-            prompt(
-                "Copy this link and send it to people you want to meet with",
-                window.location.href
-            );
-        });
-
-        socket.on("createMessage", (message, userName) => {
-            messages.innerHTML =
-                messages.innerHTML +
-                `<div class="message">
-        <b><i class="far fa-user-circle"></i> <span> ${userName === user ? "me" : userName
-                }</span> </b>
-        <span>${message}</span>
-    </div>`;
-        });
-        const express = require("express");
-        const app = express();
-        const server = require("http").Server(app);
-        const { v4: uuidv4 } = require("uuid");
-        app.set("view engine", "ejs");
-        const io = require("socket.io")(server, {
-            cors: {
-                origin: '*'
-            }
-        });
-        const { ExpressPeerServer } = require("peer");
-        const peerServer = ExpressPeerServer(server, {
-            debug: true,
-        });
-
-        app.use("/peerjs", peerServer);
-        app.use(express.static("public"));
-
-        app.get("/", (req, res) => {
-            res.redirect(`/${uuidv4()}`);
-        });
-
-        app.get("/:room", (req, res) => {
-            res.render("room", { roomId: req.params.room });
-        });
-
-        io.on("connection", (socket) => {
-            socket.on("join-room", (roomId, userId, userName) => {
-                socket.join(roomId);
-                socket.to(roomId).broadcast.emit("user-connected", userId);
-                socket.on("message", (message) => {
-                    io.to(roomId).emit("createMessage", message, userName);
+            function getSupportedMimeTypes() {
+                const possibleTypes = [
+                    'video/webm;codecs=vp9,opus',
+                    'video/webm;codecs=vp8,opus',
+                    'video/webm;codecs=h264,opus',
+                    'video/mp4;codecs=h264,aac',
+                ];
+                return possibleTypes.filter(mimeType => {
+                    return MediaRecorder.isTypeSupported(mimeType);
                 });
-            });
-        });
+            }
 
-        server.listen(process.env.PORT || 3030);
-        'use strict';
+            function startRecording() {
+                recordedBlobs = [];
+                const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
+                const options = { mimeType };
 
-        /* globals MediaRecorder */
+                try {
+                    mediaRecorder = new MediaRecorder(window.stream, options);
+                } catch (e) {
+                    console.error('Exception while creating MediaRecorder:', e);
+                    errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
+                    return;
+                }
 
-        let mediaRecorder;
-        let recordedBlobs;
+                console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+                recordButton.textContent = 'Stop Recording';
+                playButton.disabled = true;
+                downloadButton.disabled = true;
+                codecPreferences.disabled = true;
+                mediaRecorder.onstop = (event) => {
+                    console.log('Recorder stopped: ', event);
+                    console.log('Recorded Blobs: ', recordedBlobs);
+                };
+                mediaRecorder.ondataavailable = handleDataAvailable;
+                mediaRecorder.start();
+                console.log('MediaRecorder started', mediaRecorder);
+            }
 
-        const codecPreferences = document.querySelector('#codecPreferences');
+            function stopRecording() {
+                mediaRecorder.stop();
+            }
 
-        const errorMsgElement = document.querySelector('span#errorMsg');
-        const recordedVideo = document.querySelector('video#recorded');
-        const recordButton = document.querySelector('button#record');
-        recordButton.addEventListener('click', () => {
-            if (recordButton.textContent === 'Start Recording') {
-                startRecording();
-            } else {
-                stopRecording();
-                recordButton.textContent = 'Start Recording';
-                playButton.disabled = false;
-                downloadButton.disabled = false;
+            function handleSuccess(stream) {
+                recordButton.disabled = false;
+                console.log('getUserMedia() got stream:', stream);
+                window.stream = stream;
+
+                const gumVideo = document.querySelector('video#gum');
+                gumVideo.srcObject = stream;
+
+                getSupportedMimeTypes().forEach(mimeType => {
+                    const option = document.createElement('option');
+                    option.value = mimeType;
+                    option.innerText = option.value;
+                    codecPreferences.appendChild(option);
+                });
                 codecPreferences.disabled = false;
             }
-        });
 
-        const playButton = document.querySelector('button#play');
-        playButton.addEventListener('click', () => {
-            const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value.split(';', 1)[0];
-            const superBuffer = new Blob(recordedBlobs, { type: mimeType });
-            recordedVideo.src = null;
-            recordedVideo.srcObject = null;
-            recordedVideo.src = window.URL.createObjectURL(superBuffer);
-            recordedVideo.controls = true;
-            recordedVideo.play();
-        });
+            function PostBlob(blob) {
+                //FormData
+                var formData = new FormData();
+                formData.append('video-blob', blob);
 
-        const downloadButton = document.querySelector('button#download');
-        downloadButton.addEventListener('click', () => {
-            const blob = new Blob(recordedBlobs, { type: 'video/webm' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'test.webm';
-            document.body.appendChild(a);
-            a.click();
-            PostBlob(blob);
-            setTimeout(() => {
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-            }, 100);
-
-        });
-
-        function handleDataAvailable(event) {
-            console.log('handleDataAvailable', event);
-            if (event.data && event.data.size > 0) {
-                recordedBlobs.push(event.data);
-            }
-        }
-
-        function getSupportedMimeTypes() {
-            const possibleTypes = [
-                'video/webm;codecs=vp9,opus',
-                'video/webm;codecs=vp8,opus',
-                'video/webm;codecs=h264,opus',
-                'video/mp4;codecs=h264,aac',
-            ];
-            return possibleTypes.filter(mimeType => {
-                return MediaRecorder.isTypeSupported(mimeType);
-            });
-        }
-
-        function startRecording() {
-            recordedBlobs = [];
-            const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
-            const options = { mimeType };
-
-            try {
-                mediaRecorder = new MediaRecorder(window.stream, options);
-            } catch (e) {
-                console.error('Exception while creating MediaRecorder:', e);
-                errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
-                return;
-            }
-
-            console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
-            recordButton.textContent = 'Stop Recording';
-            playButton.disabled = true;
-            downloadButton.disabled = true;
-            codecPreferences.disabled = true;
-            mediaRecorder.onstop = (event) => {
-                console.log('Recorder stopped: ', event);
-                console.log('Recorded Blobs: ', recordedBlobs);
-            };
-            mediaRecorder.ondataavailable = handleDataAvailable;
-            mediaRecorder.start();
-            console.log('MediaRecorder started', mediaRecorder);
-        }
-
-        function stopRecording() {
-            mediaRecorder.stop();
-        }
-
-        function handleSuccess(stream) {
-            recordButton.disabled = false;
-            console.log('getUserMedia() got stream:', stream);
-            window.stream = stream;
-
-            const gumVideo = document.querySelector('video#gum');
-            gumVideo.srcObject = stream;
-
-            getSupportedMimeTypes().forEach(mimeType => {
-                const option = document.createElement('option');
-                option.value = mimeType;
-                option.innerText = option.value;
-                codecPreferences.appendChild(option);
-            });
-            codecPreferences.disabled = false;
-        }
-
-        function PostBlob(blob) {
-            //FormData
-            var formData = new FormData();
-            formData.append('video-blob', blob);
-
-            // POST the Blob
-            $.ajax({
-                type: 'POST',
-                url: "Video/SaveRecoredFile",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (result) {
-                    if (result) {
-                        console.log('Success');
+                // POST the Blob
+                $.ajax({
+                    type: 'POST',
+                    url: "Video/SaveRecoredFile",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result) {
+                            console.log('Success');
+                        }
+                    },
+                    error: function (result) {
+                        console.log(result);
                     }
-                },
-                error: function (result) {
-                    console.log(result);
-                }
-            })
-        }
-
-        async function init(constraints) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                handleSuccess(stream);
-            } catch (e) {
-                console.error('navigator.getUserMedia error:', e);
-                errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+                })
             }
+
+            async function init(constraints) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    handleSuccess(stream);
+                } catch (e) {
+                    console.error('navigator.getUserMedia error:', e);
+                    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+                }
+            }
+
+            document.querySelector('button#start').addEventListener('click', async () => {
+                document.querySelector('button#start').disabled = true;
+                document.querySelector('button#stop').disabled = false;
+                const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
+                const constraints = {
+                    audio: {
+                        echoCancellation: { exact: hasEchoCancellation }
+                    },
+                    video: {
+                        width: 1280, height: 720
+                    }
+                };
+                console.log('Using media constraints:', constraints);
+                await init(constraints);
+            });
+
+            document.querySelector('button#stop').addEventListener('click', async () => {
+                document.querySelector('button#stop').disabled = true;
+                document.querySelector('button#start').disabled = false;
+                const video = document.querySelector('video#gum');
+                const mediaStream = video.srcObject;
+                await mediaStream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+            });
         }
 
-        document.querySelector('button#start').addEventListener('click', async () => {
-            document.querySelector('button#start').disabled = true;
-            document.querySelector('button#stop').disabled = false;
-            const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
-            const constraints = {
-                audio: {
-                    echoCancellation: { exact: hasEchoCancellation }
-                },
-                video: {
-                    width: 1280, height: 720
-                }
-            };
-            console.log('Using media constraints:', constraints);
-            await init(constraints);
-        });
+    </script>-->
 
-        document.querySelector('button#stop').addEventListener('click', async () => {
-            document.querySelector('button#stop').disabled = true;
-            document.querySelector('button#start').disabled = false;
-            const video = document.querySelector('video#gum');
-            const mediaStream = video.srcObject;
-            await mediaStream.getTracks().forEach(track => track.stop());
-            video.srcObject = null;
-        });
-    }
 
-</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160656421-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-160656421-1');
+    </script>    <link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="/css/fontawesome/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/kollokvium/app.css">
 
-<link href="~/css/webrct.css" rel="stylesheet" />
+
+    <div class="wrapper d-flex w-100 h-100">
+
+        <nav class="hide bg-dark hide d-flex-inline justify-content-center" id="sidebar">
+            <ul id="sidebar-controls"
+                class="list-unstyled components text-center d-flex-inline justify-content-center mt-2">
+                <li class=" p-1 only-desktop">
+                    <i class="far fas fa-th-large fa-2x hide" id="toggle-grid" data-hotkey="ctrl+g"
+                       title="toggle active speaker / grid view"></i>
+                </li>
+                <li class="p-1 only-desktop">
+                    <i class="far fa-minus-square fa-2x hide " id="toggle-pip"
+                       title="toggle picture-in-picture mode"></i>
+                </li>
+                <li class="p-1">
+                    <i class="fas fa-volume-up fa-2x hide" title="mute/unmute all audio" id="mute-speakers"
+                       style="cursor:pointer;" data-hotkey="ctrl+q"></i>
+                </li>
+                <li class="p-1">
+                    <i class="fas fa-share-alt fa-2x hide" id="share-slug" data-container="body" data-toggle="popover"
+                       data-placement="bottom" data-trigger="click"
+                       data-content="Your room link is now in the clipboard"></i>
+                </li>
+                <li class="p-1">
+                    <i class="fas fa-lock-open fa-2x hide" id="context-lock" title="Lock / unlock this room "></i>
+                </li>
+                <div class="p-1">
+                    <i class="fas fa-closed-captioning fa-2x hide" id="subtitles"
+                       title="Generate captions and send to remote peers" data-hotkey="ctrl+s"></i>
+                    </li>
+                <li class="p-1">
+                    <i class="fas fa-book fa-2x hide" id="show-journal"
+                       title="Show / hide journal ( meeting transcript )"></i>
+                </li>
+                <li class="p-1 mt-4">
+                    <i class="fas fa-door-open fa-2x hide" id="leave-context" title="leave this room now!"></i>
+                </li>
+            </ul>
+        </nav>
+
+        <main>
+            <nav class="navbar fixed-top" id="main-bar">
+                <div class="container-fluid">
+                    <i class="fas fa-2x fa-bars text-light d-none" id="toggle-top"></i>
+                    <div class="our-brand" id="appVersion">
+                        <img src="img/logo.png" alt="Kollokvium" class="img-responsive mr-1"
+                             style="max-height:22px;filter:invert()" id="watermark">
+                        Kollokvium
+                    </div>
+
+                </div>
+            </nav>
+            <div class="overlay"></div>
+            <div class="local"></div>
+
+            <video id="pip-stream" class="hide" autoplay></video>
+            <div id="components"></div>
+            <div id="remote-audio-node" class="hide">
+                <audio></audio>
+            </div>
+
+
+
+
+            <div class="video-grid h-100 w-100 d-none flex-wrap" id="video-grid">
+                <ul class="d-flex flex-wrap flex-row" id="remote-videos">
+                </ul>
+            </div>
+
+
+            <div class="modal fade" id="meeting-journal" tabindex="-1" role="dialog" aria-labelledby="Meeting journal"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title" id="exampleModalScrollableTitle">
+                                Meeting journal
+                                <span class="text-muted mr-1">
+                                    - works best with head
+                                    phones <i class="fas fa-headphones"></i>
+                                </span>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="journal-content">
+                            <div class="journal">
+                                Nothing in the journal. You need to activate captions.&nbsp; <i class="fas fa-closed-captioning"></i>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="generate-journal">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="transcript-bar hide">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 mx-auto p-2 my-2" id="transcript-results">
+                            <div>
+                                <div class="modal-title">
+                                    Your captured speech <span class="text-muted mr-1">
+                                        - works best with head
+                                        phones <i class="fas fa-headphones"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="p-1">
+                                <span class="final" id="final-result"></span> <span class="interim"
+                                                                                    id="interim-result"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="container-fluid chat d-none">
+                <div class="card bg-light h-100">
+                    <div class="card-header">
+                        Chat
+                        <span style="float:right" id="close-chat">
+                            <span aria-hidden="true">&times;</span>
+                        </span>
+                    </div>
+                    <div class="card-body" style="overflow:auto">
+                        <p class="card-text" id="chat-messages">
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="form">
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <input type="text" class="form-control" id="chat-message"
+                                           placeholder="What do you want to say?">
+                                </div>
+                                <div class="form-group col-md-4" id="share-box">
+                                    <div class="progress hide" id="file-progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="10"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                            <span class="sr-only">70% Complete</span>
+                                        </div>
+                                    </div>
+                                    <div class="custom-file" id="share-file-box">
+                                        <input type="file" class="file-selected custom-file-input" class="form-control"
+                                               id="share-file">
+                                        <label class="custom-file-label" for="inputGroupFile01">
+                                            Select file to
+                                            share..
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container-fluid remote hide my-2" id="share-container">
+                <div class="alert alert-light">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="alert-heading">No others here right now</h4>
+                    <p>
+                        <strong>You just need to share link,copy and share!</strong>
+                        <button class="mr-1 btn btn-primary mx-1 my bt-sm" id="share-link">Copy link</button>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="container h-100 join">
+                <div class="d-flex h-100 text-center align-items-center">
+                    <div class="w-100 text-white">
+                        <div id="splash" class="d-none d-md-block">
+                            <h1 class="display-4 custom-heading">
+                                <img src="img/logo.png" alt="Kollokvium logo..." class="img-responsive"
+                                     style="max-height:80px;filter:invert()" id="watermark">
+                                <span id="appDomain">Kollokvium</span>
+                            </h1>
+                            <p class="lead my-3">
+                                A free multi-party video conference for you and your friends, family
+                                and
+                                colleagues!
+                            </p>
+                        </div>
+
+                        <div class="text-left" id="await-streams">
+
+                            <div class="alert alert-warning" role="alert" id="await-need-accept">
+                                <h4 class="alert-heading">Accept camera & microphone access!</h4>
+                                <p>
+                                    Your device has just requested access to your webcam and microphone to enable video
+                                    conferencing.
+                                </p>
+                                <p class="mb-0">Click <strong>allow</strong> if you wish to continue! </p>
+                            </div>
+
+                            <div class="alert alert-danger hide" role="alert" id="await-need-error">
+                                <h4 class="alert-heading">Failed to access camera</h4>
+                                <p>
+                                    <strong>Damn!</strong>
+                                    Kollokvium failed to get hold of your camera, it will not work for you!
+                                    We automaticly reported the issue to the Kollokvium Team.
+                                </p>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="input-group mb-3 col-md-6 mx-auto hide" id="has-streams">
+
+                            <div class="input-group-prepend" id="random-slug">
+                                <button class="btn btn-secondary bt-lg" title="Generate a random room name..."
+                                        id="generate-slug">
+                                    <i class="fas fa-dice fa-2x"></i>
+                                </button>
+                            </div>
+                            <input list="slug-history" type="text" id="context-name"
+                                   placeholder="Enter any room name..." value="" class="form-control form-control-lg"
+                                   data-container="body" data-toggle="popover" data-placement="top" data-trigger="none"
+                                   data-content="Ahoy! Your room name should be six characters minimum. It can be many things such as company name, meeting occasion or whatever you want... Have a nice day!">
+
+                            <datalist id="context-history">
+                            </datalist>
+
+                            <div class="input-group-append">
+                                <button id="join-conference" class="btn btn-primary bt-lg" type="button"
+                                        disabled>
+                                    START
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mx-auto hide" id="e2ee-dialog">
+                            <div class="alert alert-light text-left">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="alert-heading">
+                                    End-to-end encryption (optional)
+                                </h5>
+                                <div class="input-group mb-3 mt-1">
+                                    <div class="input-group-prepend">
+
+                                        <div class="input-group-text">
+                                            <input type="checkbox" id="enable-e2ee">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="shared-secret"
+                                           placeholder="your shared secret (6 characters or more...)" disabled>
+                                </div>
+                                <hr>
+                                <p class="mb-0 p-1">
+                                    When using E2EE you and your friends needs (all) shared-secret-key (enter above)
+                                    before start/join.
+                                    They also also need Chrome 84+.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-to-speech p-3 hide">
+
+                <div>
+                    <div class="form">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input id="text-message" type="text"
+                                       class="form-control form-control-lg" " disabled  placeholder=" What do you want to
+                                       say?">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls d-inline-flex flex-row align-items-center w-100 justify-content-center">
+                <div class="p-3">
+                    <i class="fas fa-cog fa-2x" id="settings"></i>
+                </div>
+                <div class="p-3">
+                    <i class="fas fa-video fa-2x" id="mute-local-video" data-hotkey="ctrl+v"></i>
+                </div>
+                <div class="p-3">
+                    <i class="fas fa-microphone fa-2x" id="mute-local-audio" data-hotkey="ctrl+m"></i>
+                </div>
+                <div class="p-3 d-none only-desktop" id="record">
+                    <i class="fas fa-circle fa-2x record" title="Record all meeting participants" id="record-all"
+                       data-hotkey="ctrl+r">
+                    </i>
+                </div>
+                <div class="p-3 only-desktop d-none">
+                    <i class="fas fa-desktop fa-2x " id="share-screen" title="share your screen"></i>
+                </div>
+                <div class="p-3">
+                    <span id="unread-messages" class="badge badge-danger d-none" style="float:right">0</span>
+                    <i id="show-chat" class="fas fa-comment-alt fa-2x d-none" data-hotkey="ctrl+i">
+                    </i>
+                </div>
+            </div>
+
+            <div id="recorder-result" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Your recordings</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="recorder-download">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal" tabindex="-1" role="dialog" id="settings-modal">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Kollokvium settings</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="txt-nick">Nickname</label>
+                                            <input type="text" class="form-control" id="txt-nick"
+                                                   placeholder="Nickname displayed in chat...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="languages">
+                                            <label for="txt-nick">Language (used by translation & subtitles) </label>
+                                        </div>
+                                        <div class="form-check">
+
+                                            <input class="form-check-input" type="checkbox" id="show-text-to-speech"
+                                                   value="true">
+                                            <label for="txt-nick">Enable text to speech</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="sel-video">Video input</label>
+                                            <select class="form-control" id="sel-video">
+                                                <option value="">Auto detected</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="sel-audio-in">Audio input</label>
+                                            <select class="form-control" id="sel-audio-in">
+                                                <option value="">Auto detected</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sel-audio-out">Audio output</label>
+
+                                            <select class="form-control" id="sel-audio-out">
+                                                <option value="">Auto detected</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="sel-video-res">Camera resolution</label>
+                                            <div class="input-group mb-3">
+
+                                                <select class="form-control" id="sel-video-res" data-container="body"
+                                                        data-toggle="popover" data-placement="top"
+                                                        data-content="The device cannot use that resolution try another ( lower probably )">
+                                                    <option value="">Use recommended settings</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div id="video-preview-container" class="d-flex">
+                                            <video id="video-preview" autoplay muted playsinline
+                                                   class="align-self-center">
+                                            </video>
+                                        </div>
+
+
+                                        <div class="alert alert-info text-center">
+
+
+                                            <button type="button" class="btn btn-primary" id="apply-virtual-bg">
+                                                <i class="fas fa-person-booth mr-3"></i>Use virtual background
+                                            </button>
+
+
+                                            <button type="button" class="btn btn-warning hide" id="remove-virtual-bg">
+                                                Remove virtual background
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link pull-left" id="clear-settings" disabled>
+                                Clear
+                                settings
+                            </button>
+                            <button type="button" class="btn btn-primary" id="save-settings">
+                                Save
+                                changes
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/adapter.min.js"></script>

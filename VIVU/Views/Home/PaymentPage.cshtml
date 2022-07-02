@@ -1,10 +1,75 @@
 ﻿@{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
-<div class="row">
-    <div class="col-8">
-
+@model VIVU.Models.VivuVM
+<div class="row mt-5">
+    <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted" style="color: white !important;font-size: 24px;">Kaç VIVU Para almak istersiniz?</span>
+        </h4>
+        <ul class="list-group mb-3">
+            <li class="list-group-item justify-content-between lh-condensed">
+                <label for="cc-money" style="color: #776d6d;">Bir adet VIVU para 1tl'ye eşittir.</label>
+                <input type="number" class="form-control" id="cc-money" placeholder="" required>
+                <div class="invalid-feedback">
+                    Name on card is required
+                </div>
+            </li>
+        </ul>
+        <form class="card mt-2 px-2 pt-2">
+            <div class="input-group" style="color: #505354; font-family: fangsong;display: flex;">
+                <p style="font-size: 22px;">Toplam: </p><span class="ml-auto" style="font-size: 22px;"> Tl</span>
+            </div>
+        </form>
     </div>
-    <div class="col-4">
 
+    <div class="col-md-8 order-md-1">
+        <h2 class="mb-3">Ödeme Bilgileri</h2>
+        <form id="payment-form" method="post" role="form" asp-controller="Home" asp-action="PaymentPage"  class="needs-validation" novalidate>
+
+            <div class="row" asp-validation-summary="All">
+                <div class="col-md-12 mb-3">
+                    <label for="cc-name">Kartın Üzeindeki İsim</label>
+                    <input type="text" asp-for="pvm.CardHolderName" id="cc-name" placeholder="" required>
+                    <span asp-validation-for="pvm.CardHolderName" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Name on card is required
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="cc-number">Kredi Kartı Numarası</label>
+                    <input type="text" asp-for="pvm.CardNumber" class="form-control" id="cc-number" placeholder="" required>
+                    <span asp-validation-for="pvm.CardNumber" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Credit card number is required
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label for="cc-expiration">Son Kullanım Tarihi</label>
+                    <input type="text" asp-for="pvm.ExpireMonth" class="form-control" id="cc-expiration" placeholder="Ay" required>
+                    <span asp-validation-for="pvm.ExpireMonth" class="text-danger"></span>
+                    <input type="text" asp-for="pvm.ExpireYear" class="form-control" id="cc-expiration" placeholder="Yıl" required>
+                    <span asp-validation-for="pvm.ExpireYear" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Expiration date required
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="cc-cvv">CVV</label>
+                    <input type="text" asp-for="pvm.CvvCode" class="form-control" id="cc-cvv" placeholder="" required>
+                    <span asp-validation-for="pvm.CvvCode" class="text-danger"></span>
+                    <div class="invalid-feedback">
+                        Security code required
+                    </div>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Ödemeyi Tamamla</button>
+        </form>
     </div>
 </div>
+
+
+
 <link href="~/css/PaymentPage.css" rel="stylesheet" />

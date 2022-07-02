@@ -1,73 +1,77 @@
 ﻿@{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
 @model VivuVM
 <!-- Etkinlik Oluştur -->
-<div class="mt-3" id="ativityform">
-    <canvas class="orb-canvas"></canvas>
-    <div class="overlay">
-        <div class="overlay__inner">
-            <h2>Etkinlik Oluştur</h2>
-            <form asp-controller="Home" asp-action="ActivityForm" enctype="multipart/form-data" method="post">
-                <div asp-validation-summary="All" class="form row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="col-12 mb-3">
-                            <label>Etkinlik Adı</label>
-                            <input asp-for="activity.ActivityName" type="text" class="form-control" required>
-                            <span asp-validation-for="activity.ActivityName" class="text-danger"></span>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label>Etkinlik Tarihi</label>
-                            <input asp-for="activity.ActivityDate" type="date" class="form-control" required>
-                            <span asp-validation-for="activity.ActivityDate" class="text-danger"></span>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label>Etkinlik Saati</label>
-                            <input asp-for="activity.ActivityTime" type="time" class="form-control" required>
-                            <span asp-validation-for="activity.ActivityTime" class="text-danger"></span>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label>Etkinlik Kategorisi</label>
-                            <select id="category-name" class="select">
-                                @if(Model.categories != null) {
-                                @foreach (var category in Model.categories)
-                                {
-                                    <option value="@category.Id">@category.CategoryName</option>
-                                } 
-                                }
-                            </select>
-                            <label class="form-label select-label">Kategori</label>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label>Etkinlik Fiyatı</label>
-                            <input asp-for="activity.ActivityPrice" type="number" class="form-control" required>
-                            <span asp-validation-for="activity.ActivityPrice" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <h5 class="ml-3"> Etkinlik Afişi </h5>
-                        <div class="avatar-upload">
-                            <div class="avatar-edit">
-                                <input type='file' name="Banner" id="imageUpload" accept=".png, .jpg, .jpeg" class="{{ $errors->has('Id') ? 'alert alert-danger' : '' }}" />
-                                <label for="imageUpload"></label>
-                            </div>
-                            <div class="avatar-preview container2">
-                                <div id="imagePreview">
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+<div class="activty-back">
+    <div class="mt-3" id="ativityform">
+        <canvas class="orb-canvas"></canvas>
+        <div class="overlay">
+            <div class="overlay__inner">
+                <h2>Etkinlik Oluştur</h2>
+                <form asp-controller="Home" asp-action="ActivityForm" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="All" class="form row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">
+                                <h5 class="ml-3"> Etkinlik Afişi </h5>
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <input type='file' name="Banner" id="imageUpload" accept=".png, .jpg, .jpeg" class="{{ $errors->has('Id') ? 'alert alert-danger' : '' }}" />
+                                        <label for="imageUpload"></label>
+                                    </div>
+                                    <div class="avatar-preview container2">
+                                        <div id="imagePreview">
+                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-sm-12" style="padding-right: 0px; padding-left: 0;">
+                            <div class="col-12 mb-3">
+                                <label>Etkinlik Adı</label>
+                                <input asp-for="activity.ActivityName" type="text" class="form-control" required>
+                                <span asp-validation-for="activity.ActivityName" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label>Etkinlik Tarihi</label>
+                                <input asp-for="activity.ActivityDate" type="date" class="form-control" required>
+                                <span asp-validation-for="activity.ActivityDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label>Etkinlik Saati</label>
+                                <input asp-for="activity.ActivityTime" type="time" class="form-control" required>
+                                <span asp-validation-for="activity.ActivityTime" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <label>Etkinlik Kategorisi</label>
+                                <select asp-for="@Model.activity.Cotegory" name="activity.Cotegory" id="category-name" class="form-control">
+                                    <option value="" selected hidden disabled>Kategori seçiniz</option>
+
+                                    @foreach (var category in Model.categories)
+                                    {
+                                        <option value="@category.Id">@category.CategoryName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <label>Etkinlik Fiyatı</label>
+                                <input asp-for="activity.ActivityPrice" type="number" class="form-control" required>
+                                <span asp-validation-for="activity.ActivityPrice" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="exampleFormControlTextarea1">Etkinlik İçeriği</label>
+                            <textarea asp-for="activity.ActivityDetail" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <span asp-validation-for="activity.ActivityDetail" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn mt-3">Etkinlik Oluştur</button>
                     </div>
-                    <div class="col-lg-10 col-md-10 col-sm-12 ml-3">
-                        <label for="exampleFormControlTextarea1">Etkinlik İçeriği</label>
-                        <textarea asp-for="activity.ActivityDetail" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        <span asp-validation-for="activity.ActivityDetail" class="text-danger"></span>
-                    </div>
-                    <button type="submit" class="btn mt-3">Etkinlik Oluştur</button>
-                </div>
-            </form> 
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
 <link href="~/css/Home.css" rel="stylesheet" />
 
 

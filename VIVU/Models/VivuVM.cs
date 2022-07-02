@@ -15,8 +15,12 @@ namespace VIVU.Models
         public UserModel usermodel { get; set; }
         public LoginModel login { get; set; }
         public Category category { get; set; }
+        public ActivityCategory acategory { get; set; }
         public List<Category>  categories { get; set; }
         public ResetPasswordModel reset { get; set; }
         public List<Activity> activities { get; set; }
+        public PaymentViewModel pvm { get; set; }
+        public CompletedViewModel cvm { get; set; }
+        public InstallmentViewModel ivm { get; set; }
     }
 }

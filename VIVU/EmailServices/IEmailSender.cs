@@ -12,6 +12,5 @@ namespace VIVU.EmailServices
         // api  => sendgrid
 
         Task SendEmailAsync(string email, string subject, string htmlMessage);
-
     }
 }

@@ -2,12 +2,26 @@
 @{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
 <!-- Ayarlar -->
 @model VivuVM
-<div class="mt-3" id="settings">
+<div class="mt-3 settings-back" id="settings" >
     <canvas class="orb-canvas"></canvas>
     <div class="overlay">
         <div class="overlay__inner">
             <h2>Ayarlar</h2> <form asp-action="Settings" asp-controller="Home" enctype="multipart/form-data" method="POST">
                 <div class="form row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <h5 class="ml-3"> Profil Fotoğrafı </h5>
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="avatar" class="{{ $errors->has('email') ? 'alert alert-danger' : '' }}" />
+                                <label for="imageUpload"></label>
+                            </div>
+                            <div class="avatar-preview container2">
+                                <div id="imagePreview" style="background-image: @Model.user.AvatarAdress;">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <div class="col-12 mb-3">
                             <label for="inputFistname">Ad</label>
@@ -30,21 +44,8 @@
                             <input asp-for="user.Title" type="text" class="form-control" required>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <h5 class="ml-3"> Profil Fotoğrafı </h5>
-                        <div class="avatar-upload">
-                            <div class="avatar-edit">
-                                <input type='file'  id="imageUpload" accept=".png, .jpg, .jpeg" name="avatar" class="{{ $errors->has('email') ? 'alert alert-danger' : '' }}" />
-                                <label for="imageUpload"></label>
-                            </div>
-                            <div class="avatar-preview container2">
-                                <div id="imagePreview" style="background-image: @Model.user.AvatarAdress;">
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 mt-4  d-flex">
+
+                    <div class="col-12 mt-4  password-dflx">
                         <div class="col-md-4 col-lg-4 col-sm-12 mb-3">
                             <label for="inputPasswordCurrent">Eski Şifren</label>
                             <input asp-for="user.Password" type="password" class="form-control" id="inputPasswordCurrent" required>
@@ -54,7 +55,7 @@
                             <input asp-for="user.Password" type="password" class="form-control" id="inputPasswordNew" required>
                         </div>
                         <div class="col-md-4 col-lg-4 col-sm-12 mb-3">
-                            <label for="inputPasswordNew2">Yeni Şifre Tekrar</label> 
+                            <label for="inputPasswordNew2">Yeni Şifre Tekrar</label>
                             <input asp-for="user.Password" type="password" class="form-control" id="inputPasswordNew2" required>
                         </div>
                     </div>

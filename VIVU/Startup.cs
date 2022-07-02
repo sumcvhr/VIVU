@@ -1,3 +1,4 @@
+using Glimpse.AspNet.Tab;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,8 @@ using System.Threading.Tasks;
 using VIVU.EmailServices;
 using VIVU.Identity;
 using VIVU.Models;
+using VIVU.Payment;
+using VIVU.Services;
 
 namespace VIVU
 {
@@ -35,7 +38,15 @@ namespace VIVU
             //.AddEntityFrameworkStores<ApplicationContext>();
             services.AddMvc()
   .AddSessionStateTempDataProvider();
-            services.AddSession(); 
+            services.AddSession();
+
+            //register db services
+            services.AddScoped<IBankService, BankService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+
+            //register common payment services
+            services.AddPaymentServices();
+
             services.AddScoped<IEmailSender, SmtpEmailSender>(i =>
                new SmtpEmailSender(
                    Configuration["EmailSender:Host"],
@@ -44,7 +55,8 @@ namespace VIVU
                    Configuration["EmailSender:UserName"],
                    Configuration["EmailSender:Password"])
               );
-            services.Configure<IdentityOptions>(options => {
+            services.Configure<IdentityOptions>(options =>
+            {
                 // password
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
@@ -63,7 +75,8 @@ namespace VIVU
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
 
-            services.ConfigureApplicationCookie(options => {
+            services.ConfigureApplicationCookie(options =>
+            {
                 options.LoginPath = "/Home/Login";
                 options.LogoutPath = "/Home/Logout";
                 //options.AccessDeniedPath = "/Courier/accessdenied";
@@ -79,6 +92,7 @@ namespace VIVU
             services.AddControllersWithViews();
 
             services.AddControllers();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,12 +114,40 @@ namespace VIVU
             app.UseRouting();
             app.UseAuthorization();
 
+
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "areaRoute",
+            //        template: "{area:exists}/{controller=Home}/{action=PaymentPage}/{id?}");
+
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=PaymentPage}/{id?}");
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Login}/{id?}");
             });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    //confirm
+            //    endpoints.MapControllerRoute(
+            //        name: "Confirm",
+            //        pattern: "payment/confirm/{paymentId:Guid?}",
+            //        defaults: new { action = "Confirm", controller = "Home" });
+
+            //    //callback
+            //    endpoints.MapControllerRoute(
+            //        name: "Callback",
+            //        pattern: "payment/callback/{paymentId:Guid?}",
+            //        defaults: new { action = "Callback", controller = "Home" });
+
+            //    endpoints.MapDefaultControllerRoute();
+            //});
         }
     }
 }

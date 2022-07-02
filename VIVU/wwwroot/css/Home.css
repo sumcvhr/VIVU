@@ -267,11 +267,12 @@ h1 {
 #ativityform .overlay, #settings .overlay {
     width: 100%;
     max-width: 1140px;
-    max-height: 640px;
+    max-height: 662px;
     padding: 8rem 6rem;
     display: flex;
     align-items: center;
     background: #81b1ef2b;
+    backdrop-filter: blur(2px);
     box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
     border-radius: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.125);
@@ -352,7 +353,9 @@ h1 {
     justify-content: center;
     align-items: center;
 }
-
+.dropdown-toggle::after {
+    display:none;
+}
 @media (prefers-contrast: high) {
     #ativityform .orb-canvas, #settings .orb-canvas {
         display: none;
@@ -425,7 +428,6 @@ h1 {
 
     .avatar-upload .avatar-edit {
         position: absolute;
-        right: 12px;
         z-index: 1;
         top: 10px;
     }
@@ -466,10 +468,10 @@ h1 {
                 }
 
     .avatar-upload .avatar-preview {
-        width: 100%;
-        height: 273px;
+        width: 185px;
+        height: 170px;
         position: relative;
-        border-radius: 5%;
+        border-radius: 10%;
         border: 6px solid #F8F8F8;
         box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 10%);
     }
@@ -482,7 +484,10 @@ h1 {
             background-repeat: no-repeat;
             background-position: center;
         }
-
+.activty-back {
+    background-image: url(../img/adde.png);
+    background-size: cover;
+}
 .container2 .btn {
     position: absolute;
     top: 90%;
@@ -499,10 +504,11 @@ h1 {
 
 .et-menu {
     list-style: none;
-    display: inline-block;
+    flex-wrap: nowrap;
+    display: -webkit-box;
+    overflow-x: auto;
 }
     .et-menu li {
-        display: inherit;
         margin: 7px;
         position: relative;
     }
@@ -643,10 +649,13 @@ img.profile-photo-lg {
     box-shadow: 3px 3px 6px rgb(0 0 0 / 25%) !important;
 }
 
-
-
-
-
+.password-dflx{
+    display:flex;
+}
+.settings-back {
+    background-image: url(../img/s2.png);
+    background-size: cover;
+}
 @media only screen and (max-width: 840px) {
     .yse {
         display: block;
@@ -658,7 +667,12 @@ img.profile-photo-lg {
         width: 30%;
         top: 5%;
     }
-
+  #ativityform .overlay, #settings .overlay {
+        /* padding: 4rem; */
+        height: auto;
+        padding: 15px;
+        min-height: 1000px;
+    }
     .ys-btn {
         padding: 4px 2px !important;
         border: none;
@@ -668,6 +682,7 @@ img.profile-photo-lg {
         border-radius: 8px;
         box-shadow: 3px 3px 6px rgb(0 0 0 / 25%) !important;
     }
+   
     #calendar-movie .movie-container {
         background-color: #ffffff36;
         -webkit-box-shadow: 0px 9px 20px 5px rgb(0 0 0 / 38%);
@@ -688,6 +703,26 @@ img.profile-photo-lg {
         width: 22%;
         z-index: 102;
         visibility: visible;
+    }
+    #ativityform .overlay, #settings .overlay {
+        width: 100%;
+        max-width: 1140px;
+        max-height: 1000px;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        background: #81b1ef2b;
+        box-shadow: 0 0.75rem 2rem 0 rgb(0 0 0 / 10%);
+        border-radius: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+    .password-dflx {
+        display:inline;
+    }
+
+    .activty-back {
+        background-image: url(../img/adde.png);
+        background-size: cover;
     }
     #calendar-movie .movie-container {
         background-color: #ffffff36;

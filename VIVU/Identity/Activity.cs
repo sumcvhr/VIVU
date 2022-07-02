@@ -13,15 +13,16 @@ namespace VIVU.Identity
     public class Activity 
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ActivtyId { get; set; }
         public string ActivityName { get; set; }
-        public string Category { get; set; }
         public DateTime  ActivityDate { get; set; }
         public DateTime  ActivityTime { get; set; }
         public int  ActivityPrice { get; set; } 
         public string ActivityDetail { get; set; }
         [ForeignKey("User")]
         public string Id { get; set; }
+        public int Cotegory { get; set; }
         public string BannerAdress { get; set; }
     }
 }

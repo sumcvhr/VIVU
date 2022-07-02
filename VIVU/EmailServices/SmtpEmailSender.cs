@@ -1,48 +1,44 @@
-﻿using MailKit.Security;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MimeKit;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using VIVU.Models;
 
 namespace VIVU.EmailServices
 {
-    public class SmtpEmailSender : IEmailSender
+    public class SmtpEmailSender: IEmailSender
     {
-        private string _host;
-        private int _port;
-        private bool _enableSSL;
-        private string _username;
-        private string _password;
-        public SmtpEmailSender(string host, int port, bool enableSSL, string username, string password)
-        {
-            this._host = host;
-            this._port = port;
-            this._enableSSL = enableSSL;
-            this._username = username;
-            this._password = password;
-        }
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
-        {
-            var client = new SmtpClient(this._host, this._port)
+            private string _host;
+            private int _port;
+            private bool _enableSSL;
+            private string _username;
+            private string _password;
+            public SmtpEmailSender(string host, int port, bool enableSSL, string username, string password)
             {
-                Credentials = new NetworkCredential(_username, _password),
-                EnableSsl = this._enableSSL
-            };
-
-            return client.SendMailAsync(
-                new MailMessage(this._username, email, subject, htmlMessage)
+                this._host = host;
+                this._port = port;
+                this._enableSSL = enableSSL;
+                this._username = username;
+                this._password = password;
+            }
+            public Task SendEmailAsync(string email, string subject, string htmlMessage)
+            {
+                var client = new SmtpClient(this._host, this._port)
                 {
-                    IsBodyHtml = true
-                }
-            );
-        }
+                    Credentials = new NetworkCredential(_username, _password),
+                    EnableSsl = this._enableSSL
+                };
+
+                return client.SendMailAsync(
+                    new MailMessage(this._username, email, subject, htmlMessage)
+                    {
+                        IsBodyHtml = true
+                    }
+                );
+            }
+
+   
+      }
     }
-}
 

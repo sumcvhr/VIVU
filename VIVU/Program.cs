@@ -22,5 +22,6 @@ namespace VIVU
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }

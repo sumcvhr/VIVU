@@ -1,2 +1,24 @@
-﻿body {
+﻿.btn {
+    padding: 15px 50px;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 3px;
+    background: #cf00f5;
+    border-color: #cf00f5;
+    display: inline-block;
+}
+    .btn.focus, .btn:focus {
+        outline: 0;
+        box-shadow:none;
+    }
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #cf00f5;
+    border-color: #cf00f5;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #cf00f5;
+    border-color: #cf00f5;
 }

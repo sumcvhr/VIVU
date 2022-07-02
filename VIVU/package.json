@@ -16,5 +16,89 @@
     "peer": "^0.5.3",
     "socket.io": "^2.3.0",
     "uuid": "^8.3.0"
-  }
+  },
+  "name": "kollokvium",
+  "version": "1.8.7",
+  "description": "",
+  "main": "dist/server.js",
+  "engines": {
+    "node": "16.13.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coloquium/kollokvium.git",
+    "directory": "dist"
+  },
+  "author": {
+    "name": "Team Kollokvium",
+    "url": "https://github.com/coloquium"
+  },
+  "contributors": [
+    {
+      "name": "Magnus Thor",
+      "url": "https://github.com/MagnusThor"
+    },
+    {
+      "name": "Tibi Covaci",
+      "url": "https://github.com/tibor19"
+    },
+    {
+      "name": "Chris Matthieu",
+      "url": "https://github.com/chrismatthieu"
+    },
+    {
+      "name": "Ersin Basaran",
+      "url": "https://github.com/basarane"
+    },
+    {
+      "name": "Ricky Davies",
+      "url": "https://github.com/kaista82"
+    }
+  ],
+  "scripts": {
+    "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
+    "build:client": "webpack --config=webpack.config.js",
+    "build:server": "webpack --config=webpack.server.js",
+    "start": "node dist/server.js",
+    "start:secure": "node dist/server.js -s",
+    "start:debug": "cross-env WSS_SERVER_URL='wss://dev-wss.kollokvium.net' webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@microsoft/applicationinsights-web": "^2.7.2",
+    "@virtualscenery/greenscreenstream": "^3.0.1",
+    "@angular/flex-layout": "5.0.0-beta.14",
+    "applicationinsights": "^1.8.10",
+    "bufferutil": "^4.0.6",
+    "express": "^4.17.2",
+    "hotkeys-js": "^3.8.7",
+    "image-capture": "^0.4.0",
+    "mediastreamblender": "^1.0.0-beta.4",
+    "thor-io.client-vnext": "^2.2.0-beta.3",
+    "thor-io.vnext": "^2.0.6",
+    "utf-8-validate": "^5.0.8",
+    "webrtc-adapter": "^7.7.1",
+    "ws": "^7.5.6",
+    "yargs": "^15.4.1"
+  },
+  "devDependencies": {
+    "@tensorflow/tfjs-node-gpu": "^0.1.18",
+    "@types/webgl-ext": "./webgl-ext",
+    "@types/bootstrap": "^4.6.1",
+    "@types/express": "^4.17.13",
+    "@types/jquery": "^3.5.13",
+    "@types/ws": "^5.1.0",
+    "@types/yargs": "^15.0.14",
+    "concurrently": "^5.3.0",
+    "copy-webpack-plugin": "^5.1.2",
+    "cross-env": "^7.0.3",
+    "html-webpack-plugin": "^4.5.2",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.9.10",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.3"
+  },
+
 }

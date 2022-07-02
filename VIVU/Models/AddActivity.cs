@@ -11,8 +11,6 @@ namespace VIVU.Models
         [Required]
         public string ActivityName { get; set; }
         [Required]
-        public string Category { get; set; }
-        [Required]
         public DateTime ActivityDate { get; set; }
         [Required]
         public DateTime ActivityTime { get; set; }
@@ -22,5 +20,7 @@ namespace VIVU.Models
         public string ActivityDetail { get; set; }
         [Required]
         public string BannerAdress { get; set; }
+        [Required]
+        public int Category { get; set; }
     }
 }

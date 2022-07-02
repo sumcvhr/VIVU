@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+   
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - VIVU</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -14,6 +15,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <meta name="theme-color" content="#ffffff">
+    <link href="/css/fontawesome/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 
 </head>
 
@@ -21,11 +25,7 @@
     <header class="side-header">
 
         <a asp-controller="Home" asp-action="MyProfilePage">
-            <div class="logo">
-                @*<i class="fas fa-user"></i>*@
-                <i class="far fa-user"></i>
-                @*<img src="@Model.usermodel.AvatarAdress">*@
-            </div>
+            @await Component.InvokeAsync("Logo")
         </a>
         <nav class="navbar-side">
             <ul class="">
@@ -43,6 +43,20 @@
                     <a asp-controller="Home" asp-action="ActivityForm">
                         <div class="svg-space mb-4 mt-1"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z" /></svg></div>
                     </a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="PaymentPage">
+                        <div class="svg-space mb-4 mt-1"> <i class="fas fa-coins" style="font-size: 28px;"></i></div>
+                       
+                    </a>
+
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="">
+                        <div class="svg-space mb-4 mt-1">    <i class="fas fa-shopping-cart" style="font-size: 28px;"></i> </div>
+                     
+                    </a>
+
                 </li>
                 <li>
                     <a asp-controller="Home" asp-action="Settings">
@@ -68,31 +82,7 @@
 
     <main class="main-wrapper ">
 
-        <header class="top-navbar">
-            <form id="search-fr" class="searchform" style=" display: -webkit-flex; display: -ms-flexbox; font-size: 16px; height: 40px; display: flex; margin: auto; width: 40%;">
-                <div class="search-field">
-                    <input autocomplete="off" class="search-field__input" name="term" placeholder="Enter text here" type="search">
-                </div>
-                <button class="search-field__button" type="submit">
-                    <i class="fa fa-search" aria-hidden="true"><span class="e-icon__alt">Search</span></i>
-                </button>
-            </form>
-            <nav class="navbar-top">
-
-                <ul>
-
-                    <li>
-                        <a href="#" class="mx-1"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.0.0 by fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M256 32V49.88C328.5 61.39 384 124.2 384 200V233.4C384 278.8 399.5 322.9 427.8 358.4L442.7 377C448.5 384.2 449.6 394.1 445.6 402.4C441.6 410.7 433.2 416 424 416H24C14.77 416 6.365 410.7 2.369 402.4C-1.628 394.1-.504 384.2 5.26 377L20.17 358.4C48.54 322.9 64 278.8 64 233.4V200C64 124.2 119.5 61.39 192 49.88V32C192 14.33 206.3 0 224 0C241.7 0 256 14.33 256 32V32zM216 96C158.6 96 112 142.6 112 200V233.4C112 281.3 98.12 328 72.31 368H375.7C349.9 328 336 281.3 336 233.4V200C336 142.6 289.4 96 232 96H216zM288 448C288 464.1 281.3 481.3 269.3 493.3C257.3 505.3 240.1 512 224 512C207 512 190.7 505.3 178.7 493.3C166.7 481.3 160 464.1 160 448H288z" /></svg></a>
-                    </li>
-                    <li class="menu-toggle">
-                        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><g><g><path d="M4.667,82.982H95v-6.018H4.667V82.982z M4.667,52.895H95v-6.018H4.667V52.895z M4.667,19.798v6.018H95v-6.018H4.667z" /></g></g></svg></a>
-                    </li>
-
-                </ul>
-
-            </nav>
-
-        </header>
+        @await Component.InvokeAsync("LoginModal")
 
         <section class="works">
             <div style="width: 100%;">
@@ -155,7 +145,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

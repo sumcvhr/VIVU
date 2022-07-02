@@ -11,7 +11,7 @@ namespace VIVU.Identity
     public class Follow
     {
         [Key]
-        public string id { get; set; }
+        public int id { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
     }

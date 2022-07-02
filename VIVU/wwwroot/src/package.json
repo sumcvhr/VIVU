@@ -1,0 +1,38 @@
+{
+  "name": "kollokvium",
+  "version": "1.7.19",
+  "description": "Kollokvium electron app",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coloquium/kollokvium.git",
+    "directory": "dist"
+  },
+  "author": {
+    "name": "Team Kollokvium",
+    "url": "https://github.com/coloquium"
+  },
+  "contributors": [
+    {
+      "name": "Magnus Thor",
+      "url": "https://github.com/MagnusThor"
+    },
+    {
+      "name": "Tibi Covaci",
+      "url": "https://github.com/tibor19"
+    },
+    {
+      "name": "Chris Matthieu",
+      "url": "https://github.com/chrismatthieu"
+    },
+    {
+      "name": "Ersin Basaran",
+      "url": "https://github.com/basarane"
+    },
+    {
+      "name": "Ricky Davies",
+      "url": "https://github.com/kaista82"
+    }
+  ],
+  "license": "MIT"
+}

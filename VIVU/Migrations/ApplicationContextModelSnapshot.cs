@@ -175,8 +175,8 @@ namespace VIVU.Migrations
                     b.Property<string>("BannerAdress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Cotegory")
+                        .HasColumnType("int");
 
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
@@ -184,6 +184,28 @@ namespace VIVU.Migrations
                     b.HasKey("ActivtyId");
 
                     b.ToTable("Activity");
+                });
+
+            modelBuilder.Entity("VIVU.Identity.ActivityCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("ActivityCategory");
                 });
 
             modelBuilder.Entity("VIVU.Identity.ActivityTaken", b =>
@@ -221,8 +243,10 @@ namespace VIVU.Migrations
 
             modelBuilder.Entity("VIVU.Identity.Follow", b =>
                 {
-                    b.Property<string>("id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
@@ -234,8 +258,10 @@ namespace VIVU.Migrations
 
             modelBuilder.Entity("VIVU.Identity.Followers", b =>
                 {
-                    b.Property<string>("id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
@@ -383,6 +409,25 @@ namespace VIVU.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VIVU.Identity.ActivityCategory", b =>
+                {
+                    b.HasOne("VIVU.Identity.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VIVU.Identity.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

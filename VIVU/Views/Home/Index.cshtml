@@ -1,69 +1,240 @@
 ﻿@{ Layout = "~/Views/Shared/_MyLayout.cshtml";}
 @model VIVU.Models.VivuVM
+
 <div class="tab-content" style="width:100%;">
     <!-- Ana Sayfa -->
     <div class="row" id="etcard">
         <div class="col-9 row">
-            <div class="work col-lg-4 col-sm-12" data-toggle="modal" data-target="#myModal">
-                <div class='card'>
-                    <div class='overlay'></div>
-                    <img src='~/img/a1.jpg' class='bg'>
-                    <div class='card-text'>
-                        <div class='whitespace'></div>
-                        <h1>Etkinlik Adı</h1>
+            <div class="col-12 mb-3">
+                <ul class="et-menu nav nav-pills flex-column " id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="popular-tab" data-toggle="tab" href="#popular" role="tab" aria-controls="popular" aria-selected="true">Trend</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Astronomi-tab" data-toggle="tab" href="#Astronomi" role="tab" aria-controls="Astronomi" aria-selected="false">Astronomi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="cetkinlik-tab" data-toggle="tab" href="#cetkinlik" role="tab" aria-controls="cetkinlik" aria-selected="false">Çocuk Etkinlikleri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="disticaret-tab" data-toggle="tab" href="#disticaret" role="tab" aria-controls="disticaret" aria-selected="false">Dış Ticaret </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="dijitalpazarlama-tab" data-toggle="tab" href="#dijitalpazarlama" role="tab" aria-controls="dijitalpazarlama" aria-selected="false">Dijital Pazarlama</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Ekonomi-tab" data-toggle="tab" href="#Ekonomi" role="tab" aria-controls="Ekonomi" aria-selected="false">Ekonomi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Egitim-tab" data-toggle="tab" href="#Egitim" role="tab" aria-controls="Egitim" aria-selected="false">Eğitim</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="ESpor-tab" data-toggle="tab" href="#ESpor" role="tab" aria-controls="ESpor" aria-selected="false">E-Spor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Eticaret-tab" data-toggle="tab" href="#Eticaret" role="tab" aria-controls="Eticaret" aria-selected="false">E-ticaret </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="FinTech-tab" data-toggle="tab" href="#FinTech" role="tab" aria-controls="FinTech" aria-selected="false">FinTech </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Girisimcilik-tab" data-toggle="tab" href="#Girişimcilik" role="tab" aria-controls="Girişimcilik" aria-selected="false">Girişimcilik </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Kariyer-tab" data-toggle="tab" href="#Kariyer" role="tab" aria-controls="Kariyer" aria-selected="false">Kariyer </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="kgelisim-tab" data-toggle="tab" href="#kgelisim" role="tab" aria-controls="kgelisim" aria-selected="false">Kişisel Gelişim </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="kripto-tab" data-toggle="tab" href="#kripto" role="tab" aria-controls="kripto" aria-selected="false">Kriptopara </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="moda-tab" data-toggle="tab" href="#moda" role="tab" aria-controls="moda" aria-selected="false">Moda </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Muhendislik-tab" data-toggle="tab" href="#Muhendislik" role="tab" aria-controls="Muhendislik" aria-selected="false">Mühendislik </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Muzik-tab" data-toggle="tab" href="#Muzik" role="tab" aria-controls="Muzik" aria-selected="false">Müzik</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="ders-tab" data-toggle="tab" href="#ders" role="tab" aria-controls="ders" aria-selected="false">Özel ders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Psikoloji-tab" data-toggle="tab" href="#Psikoloji" role="tab" aria-controls="Psikoloji" aria-selected="false">Psikoloji </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Politika-tab" data-toggle="tab" href="#Politika" role="tab" aria-controls="Politika" aria-selected="false">Politika </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="saglik-tab" data-toggle="tab" href="#saglik" role="tab" aria-controls="saglik" aria-selected="false">Sağlık </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Sanat-tab" data-toggle="tab" href="#Sanat" role="tab" aria-controls="Sanat" aria-selected="false">Sanat </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="sosyal-tab" data-toggle="tab" href="#sosyal" role="tab" aria-controls="sosyal" aria-selected="false">Sosyal Medya </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Spor-tab" data-toggle="tab" href="#Spor" role="tab" aria-controls="Spor" aria-selected="false">Spor  </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="Teknoloji-tab" data-toggle="tab" href="#Teknoloji" role="tab" aria-controls="Teknoloji" aria-selected="false">Teknoloji </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="ucretsiz-tab" data-toggle="tab" href="#ucretsiz" role="tab" aria-controls="ucretsiz" aria-selected="false">Ücretsiz Etkinlikler </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="dil-tab" data-toggle="tab" href="#dil" role="tab" aria-controls="dil" aria-selected="false">Yabancı Dil </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+                    <div class="row">
+                        <div class="work col-lg-4 col-sm-12" data-toggle="modal" data-target="#myModal">
+                            <div class='card'>
+                                <div class='overlay'></div>
+                                <img src='~/img/a1.jpg' class='bg'>
+                                <div class='card-text'>
+                                    <div class='whitespace'></div>
+                                    <h1>Etkinlik Adı</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="work col-lg-4 col-sm-12">
+                            <div class='card'>
+                                <div class='overlay'></div>
+                                <img src='~/img/a2.jpg' class='bg'>
+                                <div class='card-text'>
+                                    <div class='whitespace'></div>
+                                    <h1>Etkinlik Adı</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="work col-lg-4 col-sm-12">
+                            <div class='card'>
+                                <div class='overlay'></div>
+                                <img src='~/img/a3.jpg' class='bg'>
+                                <div class='card-text'>
+                                    <div class='whitespace'></div>
+                                    <h1>Etkinlik Adı</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="work col-lg-4 col-sm-12">
+                            <div class='card'>
+                                <div class='overlay'></div>
+                                <img src='/img/a4.jpg' class='bg'>
+                                <div class='card-text'>
+                                    <div class='whitespace'></div>
+                                    <h1>Etkinlik Adı</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="work col-lg-4 col-sm-12">
+                            <div class='card'>
+                                <div class='overlay'></div>
+                                <img src='~/img/a5.png' class='bg'>
+                                <div class='card-text'>
+                                    <div class='whitespace'></div>
+                                    <h1>Etkinlik Adı</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="work col-lg-4 col-sm-12">
+                            <div class='card'>
+                                <div class='overlay'></div>
+                                <img src='~/img/a6.jpg' class='bg'>
+                                <div class='card-text'>
+                                    <div class='whitespace'></div>
+                                    <h1>Etkinlik Adı</h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="work col-lg-4 col-sm-12">
-                <div class='card'>
-                    <div class='overlay'></div>
-                    <img src='~/img/a2.jpg' class='bg'>
-                    <div class='card-text'>
-                        <div class='whitespace'></div>
-                        <h1>Etkinlik Adı</h1>
-                    </div>
+                <div class="tab-pane fade" id="Astronomi" role="tabpanel" aria-labelledby="Astronomi-tab">
+
+                </div>
+                <div class="tab-pane fade" id="cetkinlik" role="tabpanel" aria-labelledby="cetkinlik-tab">
+
+                </div>
+                <div class="tab-pane fade" id="disticaret" role="tabpanel" aria-labelledby="disticaret-tab">
+
+                </div>
+                <div class="tab-pane fade" id="dijitalpazarlama" role="tabpanel" aria-labelledby="dijitalpazarlama-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Ekonomi" role="tabpanel" aria-labelledby="Ekonomi-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Egitim" role="tabpanel" aria-labelledby="Egitim-tab">
+
+                </div>
+                <div class="tab-pane fade" id="ESpor" role="tabpanel" aria-labelledby="ESpor-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Eticaret" role="tabpanel" aria-labelledby="Eticaret-tab">
+
+                </div>
+                <div class="tab-pane fade" id="FinTech" role="tabpanel" aria-labelledby="FinTech-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Girisimcilik" role="tabpanel" aria-labelledby="Girisimcilik-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Kariyer" role="tabpanel" aria-labelledby="Kariyer-tab">
+
+                </div>
+                <div class="tab-pane fade" id="kgelisim" role="tabpanel" aria-labelledby="kgelisim-tab">
+
+                </div>
+                <div class="tab-pane fade" id="kripto" role="tabpanel" aria-labelledby="kripto-tab">
+
+                </div>
+                <div class="tab-pane fade" id="moda" role="tabpanel" aria-labelledby="moda-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Muhendislik" role="tabpanel" aria-labelledby="Muhendislik-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Muzik" role="tabpanel" aria-labelledby="Muzik-tab">
+
+                </div>
+                <div class="tab-pane fade" id="ders" role="tabpanel" aria-labelledby="ders-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Psikoloji" role="tabpanel" aria-labelledby="Psikoloji-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Politika" role="tabpanel" aria-labelledby="Politika-tab">
+
+                </div>
+                <div class="tab-pane fade" id="saglik" role="tabpanel" aria-labelledby="saglik-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Sanat" role="tabpanel" aria-labelledby="Sanat-tab">
+
+                </div>
+                <div class="tab-pane fade" id="sosyal" role="tabpanel" aria-labelledby="sosyal-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Spor" role="tabpanel" aria-labelledby="Spor-tab">
+
+                </div>
+                <div class="tab-pane fade" id="Teknoloji" role="tabpanel" aria-labelledby="Teknoloji-tab">
+
+                </div>
+                <div class="tab-pane fade" id="ucretsiz" role="tabpanel" aria-labelledby="ucretsiz-tab">
+
+                </div>
+                <div class="tab-pane fade" id="dil" role="tabpanel" aria-labelledby="dil-tab">
+
                 </div>
             </div>
-            <div class="work col-lg-4 col-sm-12">
-                <div class='card'>
-                    <div class='overlay'></div>
-                    <img src='~/img/a3.jpg' class='bg'>
-                    <div class='card-text'>
-                        <div class='whitespace'></div>
-                        <h1>Etkinlik Adı</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="work col-lg-4 col-sm-12">
-                <div class='card'>
-                    <div class='overlay'></div>
-                    <img src='/img/a4.jpg' class='bg'>
-                    <div class='card-text'>
-                        <div class='whitespace'></div>
-                        <h1>Etkinlik Adı</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="work col-lg-4 col-sm-12">
-                <div class='card'>
-                    <div class='overlay'></div>
-                    <img src='~/img/a5.png' class='bg'>
-                    <div class='card-text'>
-                        <div class='whitespace'></div>
-                        <h1>Etkinlik Adı</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="work col-lg-4 col-sm-12">
-                <div class='card'>
-                    <div class='overlay'></div>
-                    <img src='~/img/a6.jpg' class='bg'>
-                    <div class='card-text'>
-                        <div class='whitespace'></div>
-                        <h1>Etkinlik Adı</h1>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="col-3 yse row">
             <h4 class="my-4" style=" border-bottom: 1px solid #81b1efb3;">Yaklaşan Etkinlikler </h4>
@@ -88,28 +259,28 @@
                     </div>
                 }
             }
-                    <div class="people-nearby">
-                        <div class="nearby-user">
-                            <div class="row">
-                                <div class="col-md-3 col-sm-3">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="user" class="profile-photo-lg">
-                                </div>
-                                <div class="col-md-7 col-sm-7">
-                                    <p style="font-size: 16px;"><a href="#" class="profile-link">Etkinlik Adı</a></p>
-                                </div>
-                                <div class="col-md-2 col-sm-2">
-                                    <button class="btn ys-btn pull-right">Katıl</button>
-                                </div>
-                            </div>
+            <div class="people-nearby">
+                <div class="nearby-user">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="user" class="profile-photo-lg">
+                        </div>
+                        <div class="col-md-7 col-sm-7">
+                            <p style="font-size: 16px;"><a href="#" class="profile-link">Etkinlik Adı</a></p>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            <button class="btn ys-btn pull-right">Katıl</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div>
                     <div class="modal-body">
                         <div class="movie-container m-5 p-5">
-                            <div class="row d-flex align-items-stretch">
+                            <div class="row align-items-stretch">
                                 <div class="col-md-5 col-lg-5">
                                     <img src="~/img/a1.jpg" class="img-fluid movie-img">
                                 </div>
